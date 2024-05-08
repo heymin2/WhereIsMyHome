@@ -11,7 +11,7 @@
 
 	<select id="login" parameterType="com.ssafy.home.dto.MemberDto" resultType="com.ssafy.home.dto.MemberDto">
 		select * from member
-		where userid = #{id} and userpwd = #{pw}
+		where id = #{id} and pw = #{pw}
 	</select>
 
 	<select id="getMemberById" parameterType="String" resultType="int">

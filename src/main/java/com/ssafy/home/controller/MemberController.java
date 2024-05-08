@@ -32,12 +32,12 @@ public class MemberController {
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody MemberDto memberDto, HttpSession session) {
         try {
-            MemberDto id = memberService.login(memberDto);
-            System.out.println(id);
-            session.setAttribute("loggedInUser", id);
+            MemberDto member = memberService.login(memberDto);
+            session.setAttribute("member", member);
+            System.out.println(member);
 
-            if(id != null) {
-                return new ResponseEntity<>(HttpStatus.OK);
+            if(member != null) {
+                return ResponseEntity.accepted().body("로그인 성공");
             }
             else {
                 return ResponseEntity.accepted().body("로그인 실패");
