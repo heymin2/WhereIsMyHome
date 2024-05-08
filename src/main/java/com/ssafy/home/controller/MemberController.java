@@ -25,7 +25,7 @@ public class MemberController {
             memberService.signUp(memberDto);
             return ResponseEntity.accepted().body("회원가입 성공");
         } catch (Exception e) {
-            return new ResponseEntity<>(memberDto, HttpStatus.INTERNAL_SERVER_ERROR);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("회원가입 실패");
         }
     }
 

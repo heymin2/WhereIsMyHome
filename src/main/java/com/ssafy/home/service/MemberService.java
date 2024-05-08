@@ -15,7 +15,10 @@ public class MemberService {
         this.memberMapper = memberMapper;
     }
 
-    public void signUp(MemberDto memberDto){
+    public void signUp(MemberDto memberDto) throws Exception {
+        if(getMemberById(memberDto.getId()) >= 1) {
+            throw new Exception();
+        }
         memberMapper.signUp(memberDto);
     }
 
@@ -23,7 +26,7 @@ public class MemberService {
         return memberMapper.login(memberDto);
     }
 
-    public MemberDto getMemberById(String member_id) {
+    public int getMemberById(String member_id) {
         return memberMapper.getMemberById(member_id);
     }
 

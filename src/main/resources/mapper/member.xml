@@ -13,13 +13,14 @@
 		select * from member
 		where userid = #{id} and userpwd = #{pw}
 	</select>
-<!-- 
-	<select id="getMemberById" parameterType="String" resultType="memberDto">
-		SELECT * FROM memberDto WHERE member_id = #{member_id}
+
+	<select id="getMemberById" parameterType="String" resultType="int">
+		SELECT count(*) FROM member WHERE id = #{id}
 	</select>
 
+	<!--
 	<update id="updateMember" parameterType="memberDto">
-		update memberDto set member_name=#{member_name}, password=#{password}, email=#{email}, mobile=#{mobile}
+		update member set member_name=#{member_name}, password=#{password}, email=#{email}, mobile=#{mobile}
 		where member_id = #{member_id}
 	</update>
 	 -->
