@@ -1,9 +1,11 @@
 package com.ssafy.home.service;
 
-import com.ssafy.home.entity.Member;
+import com.ssafy.home.dto.MemberDto;
 import com.ssafy.home.mapper.MemberMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 public class MemberService {
 
@@ -13,15 +15,19 @@ public class MemberService {
         this.memberMapper = memberMapper;
     }
 
-    public Member login(Member member){
-        return memberMapper.login(member);
+    public void signUp(MemberDto memberDto){
+        memberMapper.signUp(memberDto);
     }
 
-    public Member getMemberById(String member_id) {
+    public MemberDto login(MemberDto memberDto){
+        return memberMapper.login(memberDto);
+    }
+
+    public MemberDto getMemberById(String member_id) {
         return memberMapper.getMemberById(member_id);
     }
 
-    public int updateMember(Member member){
-        return memberMapper.updateMember(member);
+    public int updateMember(MemberDto memberDto){
+        return memberMapper.updateMember(memberDto);
     }
 }

@@ -1,11 +1,12 @@
 package com.ssafy.home.mapper;
 
-import com.ssafy.home.entity.Member;
+import com.ssafy.home.dto.MemberDto;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface MemberMapper {
-    public Member login(Member member);
-    public Member getMemberById(String member_id);
-    public int updateMember(Member member);
+    public MemberDto login(MemberDto memberDto);
+    public MemberDto getMemberById(String member_id);
+    public int updateMember(MemberDto memberDto);
+    public void signUp(MemberDto memberDto);
 }
