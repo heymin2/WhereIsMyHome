@@ -12,7 +12,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 @ToString
 public class MemberDto {
 
-	private String member_id;
+	private int member_id;
 	private String name;
 	private String id;
 	private String pw;
@@ -21,8 +21,4 @@ public class MemberDto {
 	private boolean role;
 	private LocalDateTime created_at;
 	private LocalDateTime updated_at;
-
-	public boolean getRole() {
-		return role;
-	}
 }

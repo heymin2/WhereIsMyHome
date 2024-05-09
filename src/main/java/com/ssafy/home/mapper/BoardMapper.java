@@ -1,10 +1,14 @@
 package com.ssafy.home.mapper;
 
 import com.ssafy.home.dto.BoardDto;
+import com.ssafy.home.dto.BoardInfoDto;
 import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 @Mapper
 public interface BoardMapper {
 
-    public void createBoard(BoardDto boardDto);
+    void createBoard(BoardDto boardDto);
+    List<BoardInfoDto> listBoard();
 }

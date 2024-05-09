@@ -5,9 +5,9 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface MemberMapper {
-    public MemberDto login(MemberDto memberDto);
-    public int getMemberById(String member_id);
-    public int updateMember(MemberDto memberDto);
-    public void signUp(MemberDto memberDto);
-    public String findByPass(String id, String name);
+    MemberDto login(MemberDto memberDto);
+    int getMemberById(String member_id);
+    int updateMember(MemberDto memberDto);
+    void signUp(MemberDto memberDto);
+    String findByPass(String id, String name);
 }
