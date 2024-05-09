@@ -51,17 +51,15 @@ public class MemberController {
     public ResponseEntity<?> login(@RequestBody MemberDto memberDto, HttpSession session) {
         try {
             MemberDto member = memberService.login(memberDto);
-            session.setAttribute("member", member);
 
             if(member != null) {
-                return ResponseEntity.accepted().body("로그인 성공");
+                session.setAttribute("member", member);
+                return ResponseEntity.ok().body("로그인 성공");
+            } else {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인 실패: 사용자 정보가 올바르지 않습니다.");
             }
-            else {
-                return ResponseEntity.accepted().body("로그인 실패");
-            }
-
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("로그인 실패");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("로그인 실패: 서버 내부 오류");
         }
     }
 
