@@ -33,7 +33,7 @@ public class MemberController {
     public ResponseEntity<?> update(@RequestBody MemberDto memberDto, HttpSession session) {
         MemberDto s = (MemberDto) session.getAttribute("member");
 
-        if(s.getId().equals(memberDto.getId()) || s.getRole()) {
+        if(s.getId().equals(memberDto.getId())) {
             int cnt = memberService.updateMember(memberDto);
 
             if (cnt == 1) {
@@ -63,7 +63,7 @@ public class MemberController {
         }
     }
 
-    @GetMapping("/logout")
+    @PostMapping("/logout")
     public ResponseEntity<?> logout(HttpSession session) {
         if(session.getAttribute("member") != null) {
             session.removeAttribute("member");

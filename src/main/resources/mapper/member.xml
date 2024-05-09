@@ -23,7 +23,7 @@
 
 	<update id="updateMember" parameterType="com.ssafy.home.dto.MemberDto">
 		update member set name=#{name}, pw=#{pw}, email=#{email}, phone=#{phone}, updated_at = now()
-		where id = #{id} or role = 1
+		where id = #{id}
 	</update>
 
 </mapper>
