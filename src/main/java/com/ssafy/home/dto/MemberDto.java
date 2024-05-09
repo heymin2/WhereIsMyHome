@@ -11,6 +11,8 @@ import org.springframework.data.annotation.LastModifiedDate;
 @NoArgsConstructor
 @ToString
 public class MemberDto {
+
+	private String member_id;
 	private String name;
 	private String id;
 	private String pw;
