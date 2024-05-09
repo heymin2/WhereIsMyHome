@@ -2,6 +2,7 @@ package com.ssafy.home.service;
 
 import com.ssafy.home.dto.MemberDto;
 import com.ssafy.home.mapper.MemberMapper;
+import jdk.jfr.Timestamp;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -15,11 +16,17 @@ public class MemberService {
         this.memberMapper = memberMapper;
     }
 
+    @Timestamp
     public void signUp(MemberDto memberDto) throws Exception {
         if(getMemberById(memberDto.getId()) >= 1) {
             throw new Exception();
         }
         memberMapper.signUp(memberDto);
+    }
+
+    @Timestamp
+    public int updateMember(MemberDto memberDto){
+        return memberMapper.updateMember(memberDto);
     }
 
     public MemberDto login(MemberDto memberDto){
@@ -28,10 +35,6 @@ public class MemberService {
 
     public int getMemberById(String member_id) {
         return memberMapper.getMemberById(member_id);
-    }
-
-    public int updateMember(MemberDto memberDto){
-        return memberMapper.updateMember(memberDto);
     }
 
     public String findByPass(String id, String name) {

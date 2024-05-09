@@ -9,8 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
-
 @Slf4j
 @RestController
 @RequestMapping("/member")
@@ -19,6 +17,8 @@ public class MemberController {
     @Autowired
     private MemberService memberService;
 
+    // 회원관리
+    
     @PostMapping("/signUp")
     public ResponseEntity<?> signUp(@RequestBody MemberDto memberDto) {
         try {
@@ -29,12 +29,29 @@ public class MemberController {
         }
     }
 
+    @PostMapping("/update")
+    public ResponseEntity<?> update(@RequestBody MemberDto memberDto, HttpSession session) {
+        MemberDto s = (MemberDto) session.getAttribute("member");
+
+        if(s.getId().equals(memberDto.getId()) || s.getRole()) {
+            int cnt = memberService.updateMember(memberDto);
+
+            if (cnt == 1) {
+                return ResponseEntity.accepted().body("수정 성공");
+            } else {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("수정 실패");
+            }
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("수정 실패");
+    }
+
+    // 로그인 관리
+
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody MemberDto memberDto, HttpSession session) {
         try {
             MemberDto member = memberService.login(memberDto);
             session.setAttribute("member", member);
-            System.out.println(member);
 
             if(member != null) {
                 return ResponseEntity.accepted().body("로그인 성공");

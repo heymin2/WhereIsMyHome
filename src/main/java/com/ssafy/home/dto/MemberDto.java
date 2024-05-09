@@ -7,7 +7,6 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
 @Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
@@ -20,4 +19,8 @@ public class MemberDto {
 	private boolean role;
 	private LocalDateTime created_at;
 	private LocalDateTime updated_at;
-;}
+
+	public boolean getRole() {
+		return role;
+	}
+}
