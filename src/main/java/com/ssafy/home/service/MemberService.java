@@ -33,4 +33,8 @@ public class MemberService {
     public int updateMember(MemberDto memberDto){
         return memberMapper.updateMember(memberDto);
     }
+
+    public String findByPass(String id, String name) {
+        return memberMapper.findByPass(id, name);
+    }
 }

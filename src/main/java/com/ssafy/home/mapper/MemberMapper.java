@@ -9,4 +9,5 @@ public interface MemberMapper {
     public int getMemberById(String member_id);
     public int updateMember(MemberDto memberDto);
     public void signUp(MemberDto memberDto);
+    public String findByPass(String id, String name);
 }

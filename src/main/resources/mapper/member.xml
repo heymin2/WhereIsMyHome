@@ -18,6 +18,10 @@
 		SELECT count(*) FROM member WHERE id = #{id}
 	</select>
 
+	<select id="findByPass" parameterType="String" resultType="String">
+		select pw from member where id = #{id} and name = #{name}
+	</select>
+
 	<!--
 	<update id="updateMember" parameterType="memberDto">
 		update member set member_name=#{member_name}, password=#{password}, email=#{email}, mobile=#{mobile}

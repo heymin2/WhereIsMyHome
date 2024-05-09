@@ -58,4 +58,15 @@ public class MemberController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("로그아웃 실패");
         }
     }
+
+    @PostMapping("/pass")
+    public ResponseEntity<?> findByPass(@RequestBody MemberDto memberDto) {
+        String pw = memberService.findByPass(memberDto.getId(), memberDto.getName());
+        if(pw != null){
+            return ResponseEntity.accepted().body(pw);
+        }
+        else{
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("비밀번호 찾기 실패");
+        }
+    }
 }
