@@ -50,7 +50,12 @@ public class MemberController {
 
     @GetMapping("/logout")
     public ResponseEntity<?> logout(HttpSession session) {
-        session.removeAttribute("loggedInUser");
-        return ResponseEntity.accepted().body("로그아웃 성공");
+        if(session.getAttribute("member") != null) {
+            session.removeAttribute("member");
+            return ResponseEntity.accepted().body("로그아웃 성공");
+        }
+        else{
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("로그아웃 실패");
+        }
     }
 }
