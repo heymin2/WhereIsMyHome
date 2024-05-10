@@ -4,8 +4,8 @@ import com.ssafy.home.dto.BoardDto;
 import com.ssafy.home.dto.BoardInfoDetailDto;
 import com.ssafy.home.dto.BoardInfoDto;
 import com.ssafy.home.mapper.BoardMapper;
-import jdk.jfr.Timestamp;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -17,7 +17,7 @@ public class BoardService {
     public BoardService(BoardMapper boardMapper) {
         this.boardMapper = boardMapper;
     }
-    @Timestamp
+    @Transactional
     public void createBoard(BoardDto boardDto) {
         boardMapper.createBoard(boardDto);
     }
@@ -29,4 +29,15 @@ public class BoardService {
     public BoardInfoDetailDto listDetailBoard(int boardId) {
         return boardMapper.listDetailBoard(boardId);
     }
+
+    @Transactional
+    public int updateBoard(BoardDto boardDto) {
+        return boardMapper.updateBoard(boardDto);
+    }
+
+    @Transactional
+    public int deleteBoard(int boardId, int memberId) {
+        return boardMapper.deleteBoard(boardId, memberId);
+    }
+
 }

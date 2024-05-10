@@ -13,4 +13,6 @@ public interface BoardMapper {
     void createBoard(BoardDto boardDto);
     List<BoardInfoDto> listBoard();
     BoardInfoDetailDto listDetailBoard(int boardId);
+    int updateBoard(BoardDto boardDto);
+    int deleteBoard(int boardId, int memberId);
 }

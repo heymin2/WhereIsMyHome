@@ -5,6 +5,9 @@ import com.ssafy.home.dto.BoardInfoDetailDto;
 import com.ssafy.home.dto.BoardInfoDto;
 import com.ssafy.home.dto.MemberDto;
 import com.ssafy.home.service.BoardService;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/board")
@@ -22,8 +26,24 @@ public class BoardController {
     private BoardService boardService;
 
     @PostMapping("/create")
-    public ResponseEntity<?> signUp(@RequestBody BoardDto boardDto, HttpSession session) {
+    public ResponseEntity<?> signUp(@RequestBody BoardDto boardDto, HttpSession session, HttpServletRequest request) {
+//        Cookie[] cookies = request.getCookies();
+//
+//        if (cookies != null) {
+//            for (Cookie cookie : cookies) {
+//                if (cookie.getName().equals("session")) {
+//                    String memberId = cookie.getValue();
+//
+//                    System.out.println(memberId);
+//                    boardDto.setMemberId(Integer.parseInt(memberId));
+//                    boardService.createBoard(boardDto);
+//                    return ResponseEntity.accepted().body("글쓰기 성공");
+//                }
+//            }
+//        }
         MemberDto member = (MemberDto) session.getAttribute("member");
+        System.out.println("member" + member);
+        System.out.println(boardDto);
 
         if(member != null) {
             boardDto.setMemberId(member.getMemberId());
@@ -51,5 +71,28 @@ public class BoardController {
             return ResponseEntity.accepted().body(info);
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("상세 조회 실패");
+    }
+
+    @DeleteMapping("delete/{boardId}")
+    public ResponseEntity<?> deleteBoard(@PathVariable int boardId, @RequestBody Map<String, Integer> requestBody) {
+        int memberId = requestBody.get("memberId");
+        int cnt = boardService.deleteBoard(boardId, memberId);
+
+        if (cnt == 1) {
+            return ResponseEntity.accepted().body("삭제 성공");
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("삭제 실패");
+    }
+
+    @PutMapping("update")
+    public ResponseEntity<?> updateBoard(@RequestBody BoardDto boardDto) {
+        int cnt = boardService.updateBoard(boardDto);
+
+        System.out.println(boardDto);
+
+        if (cnt == 1) {
+            return ResponseEntity.accepted().body("수정 성공");
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("수정 실패");
     }
 }
