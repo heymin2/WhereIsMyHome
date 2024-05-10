@@ -1,6 +1,7 @@
 package com.ssafy.home.service;
 
 import com.ssafy.home.dto.BoardDto;
+import com.ssafy.home.dto.BoardInfoDetailDto;
 import com.ssafy.home.dto.BoardInfoDto;
 import com.ssafy.home.mapper.BoardMapper;
 import jdk.jfr.Timestamp;
@@ -23,5 +24,9 @@ public class BoardService {
 
     public List<BoardInfoDto> listBoard() {
         return boardMapper.listBoard();
+    }
+
+    public BoardInfoDetailDto listDetailBoard(int boardId) {
+        return boardMapper.listDetailBoard(boardId);
     }
 }
