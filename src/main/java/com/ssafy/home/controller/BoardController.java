@@ -3,20 +3,14 @@ package com.ssafy.home.controller;
 import com.ssafy.home.dto.BoardDto;
 import com.ssafy.home.dto.BoardInfoDetailDto;
 import com.ssafy.home.dto.BoardInfoDto;
-import com.ssafy.home.dto.MemberDto;
 import com.ssafy.home.service.BoardService;
-import jakarta.servlet.http.Cookie;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @RestController
 @RequestMapping("/board")
@@ -26,31 +20,17 @@ public class BoardController {
     private BoardService boardService;
 
     @PostMapping("/create")
-    public ResponseEntity<?> signUp(@RequestBody BoardDto boardDto, HttpSession session, HttpServletRequest request) {
-//        Cookie[] cookies = request.getCookies();
-//
-//        if (cookies != null) {
-//            for (Cookie cookie : cookies) {
-//                if (cookie.getName().equals("session")) {
-//                    String memberId = cookie.getValue();
-//
-//                    System.out.println(memberId);
-//                    boardDto.setMemberId(Integer.parseInt(memberId));
-//                    boardService.createBoard(boardDto);
-//                    return ResponseEntity.accepted().body("글쓰기 성공");
-//                }
-//            }
-//        }
-        MemberDto member = (MemberDto) session.getAttribute("member");
-        System.out.println("member" + member);
-        System.out.println(boardDto);
+    public ResponseEntity<?> signUp(@RequestBody BoardDto boardDto, HttpSession session) {
+        try{
+            int memberId = (int) session.getAttribute("session");
 
-        if(member != null) {
-            boardDto.setMemberId(member.getMemberId());
+            boardDto.setMemberId(memberId);
             boardService.createBoard(boardDto);
             return ResponseEntity.accepted().body("글쓰기 성공");
         }
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("글쓰기 실패");
+        catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("글쓰기 실패");
+        }
     }
 
     @GetMapping("/list")

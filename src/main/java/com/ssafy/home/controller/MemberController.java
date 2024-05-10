@@ -19,7 +19,6 @@ public class MemberController {
     private MemberService memberService;
 
     // 회원관리
-    
     @PostMapping("/signUp")
     public ResponseEntity<?> signUp(@RequestBody MemberDto memberDto) {
         try {
@@ -49,39 +48,28 @@ public class MemberController {
     // 로그인 관리
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody MemberDto memberDto, HttpSession session) {
-        try {
-            MemberDto member = memberService.login(memberDto);
+    public ResponseEntity<?> login(@RequestBody MemberDto memberDto, HttpSession session){
+        MemberDto member = memberService.login(memberDto);
 
-            if(member != null) {
-                session.setAttribute("member", member);
-                System.out.println(member);
+        if(member != null) {
+            session.setAttribute("session", member.getMemberId());
 
-                LoginDto loginDto = new LoginDto();
-                loginDto.setMemberId(member.getMemberId());
-                loginDto.setName(member.getName());
-                loginDto.setId(member.getId());
-                loginDto.setAdmin(member.getAdmin());
-                loginDto.setEmail(member.getEmail());
+            LoginDto loginDto = new LoginDto();
+            loginDto.setMemberId(member.getMemberId());
+            loginDto.setName(member.getName());
+            loginDto.setId(member.getId());
+            loginDto.setAdmin(member.getAdmin());
+            loginDto.setEmail(member.getEmail());
 
-                return ResponseEntity.ok().body(loginDto);
-            } else {
-                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인 실패: 사용자 정보가 올바르지 않습니다.");
-            }
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("로그인 실패: 서버 내부 오류");
+            return ResponseEntity.ok().body(loginDto);
         }
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인 실패: 사용자 정보가 올바르지 않습니다.");
     }
 
     @PostMapping("/logout")
-    public ResponseEntity<?> logout(HttpSession session) {
-        if(session.getAttribute("member") != null) {
-            session.removeAttribute("member");
-            return ResponseEntity.accepted().body("로그아웃 성공");
-        }
-        else{
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("로그아웃 실패");
-        }
+    public ResponseEntity<?> logout(HttpSession session){
+        session.invalidate();
+        return new ResponseEntity<>("로그아웃 성공", HttpStatus.OK);
     }
 
     @PostMapping("/pass")
