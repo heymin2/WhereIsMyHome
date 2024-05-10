@@ -2,9 +2,9 @@ package com.ssafy.home.service;
 
 import com.ssafy.home.dto.MemberDto;
 import com.ssafy.home.mapper.MemberMapper;
-import jdk.jfr.Timestamp;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
 @Service
@@ -16,7 +16,7 @@ public class MemberService {
         this.memberMapper = memberMapper;
     }
 
-    @Timestamp
+    @Transactional
     public void signUp(MemberDto memberDto) throws Exception {
         if(getMemberById(memberDto.getId()) >= 1) {
             throw new Exception();
@@ -24,7 +24,7 @@ public class MemberService {
         memberMapper.signUp(memberDto);
     }
 
-    @Timestamp
+    @Transactional
     public int updateMember(MemberDto memberDto){
         return memberMapper.updateMember(memberDto);
     }
