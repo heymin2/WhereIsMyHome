@@ -12,13 +12,13 @@ import org.springframework.data.annotation.LastModifiedDate;
 @ToString
 public class MemberDto {
 
-	private int member_id;
+	private int memberId;
 	private String name;
 	private String id;
 	private String pw;
 	private String phone;
 	private String email;
 	private boolean role;
-	private LocalDateTime created_at;
-	private LocalDateTime updated_at;
+	private LocalDateTime createdAt;
+	private LocalDateTime updatedAt;
 }

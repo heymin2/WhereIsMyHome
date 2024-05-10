@@ -13,10 +13,10 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class BoardDto {
 
-    private int board_id;
-    private int member_id;
+    private int boardId;
+    private int memberId;
     private String title;
     private String content;
-    private LocalDateTime created_at;
-    private LocalDateTime updated_at;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 }

@@ -11,4 +11,5 @@ public interface BoardMapper {
 
     void createBoard(BoardDto boardDto);
     List<BoardInfoDto> listBoard();
+    BoardInfoDto listDetailBoard();
 }

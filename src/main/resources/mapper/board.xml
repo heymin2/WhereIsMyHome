@@ -3,7 +3,7 @@
 <mapper namespace="com.ssafy.home.mapper.BoardMapper">
     <insert id="createBoard" parameterType="com.ssafy.home.dto.BoardDto">
         insert into board(member_id, title, content, created_at, updated_at)
-        values ( #{member_id}, #{title}, #{content}, now(), now())
+        values ( #{memberId}, #{title}, #{content}, now(), now())
     </insert>
 
     <select id="listBoard" resultType="com.ssafy.home.dto.BoardInfoDto">

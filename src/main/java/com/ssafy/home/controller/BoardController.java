@@ -25,7 +25,7 @@ public class BoardController {
         MemberDto member = (MemberDto) session.getAttribute("member");
 
         if(member != null) {
-            boardDto.setMember_id(member.getMember_id());
+            boardDto.setMemberId(member.getMemberId());
             boardService.createBoard(boardDto);
             return ResponseEntity.accepted().body("글쓰기 성공");
         }
