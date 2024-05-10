@@ -4,12 +4,13 @@
 <mapper namespace="com.ssafy.home.mapper.MemberMapper">
 
 	<insert id="signUp" parameterType="com.ssafy.home.dto.MemberDto">
-		insert into member(name, id, pw, phone, email, role, created_at, updated_at)
-		values (#{name}, #{id}, #{pw}, #{phone}, #{email},#{role}, now(), now())
+		insert into member(name, id, pw, phone, email, is_admin, created_at, updated_at)
+		values (#{name}, #{id}, #{pw}, #{phone}, #{email}, #{admin}, now(), now())
 	</insert>
 
 	<select id="login" parameterType="com.ssafy.home.dto.MemberDto" resultType="com.ssafy.home.dto.MemberDto">
-		select * from member
+		select member_id as memberId, name, id, pw, phone, email, is_admin as admin, created_at as createdAt, updated_at as updatedAt
+		from member
 		where id = #{id} and pw = #{pw}
 	</select>
 

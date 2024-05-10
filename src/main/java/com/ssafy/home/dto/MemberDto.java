@@ -18,7 +18,11 @@ public class MemberDto {
 	private String pw;
 	private String phone;
 	private String email;
-	private boolean role;
+	private boolean admin;
 	private LocalDateTime createdAt;
 	private LocalDateTime updatedAt;
+
+	public boolean getAdmin() {
+		return admin;
+	}
 }

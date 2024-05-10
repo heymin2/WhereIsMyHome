@@ -1,5 +1,6 @@
 package com.ssafy.home.controller;
 
+import com.ssafy.home.dto.LoginDto;
 import com.ssafy.home.dto.MemberDto;
 import com.ssafy.home.service.MemberService;
 import jakarta.servlet.http.HttpSession;
@@ -54,7 +55,16 @@ public class MemberController {
 
             if(member != null) {
                 session.setAttribute("member", member);
-                return ResponseEntity.ok().body("로그인 성공");
+                System.out.println(member);
+
+                LoginDto loginDto = new LoginDto();
+                loginDto.setMemberId(member.getMemberId());
+                loginDto.setName(member.getName());
+                loginDto.setId(member.getId());
+                loginDto.setAdmin(member.getAdmin());
+                loginDto.setEmail(member.getEmail());
+
+                return ResponseEntity.ok().body(loginDto);
             } else {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인 실패: 사용자 정보가 올바르지 않습니다.");
             }
