@@ -19,7 +19,7 @@ public class BoardController {
     @Autowired
     private BoardService boardService;
 
-    @PostMapping("/create")
+    @PostMapping("")
     public ResponseEntity<?> signUp(@RequestBody BoardDto boardDto, HttpSession session) {
         try{
             int memberId = (int) session.getAttribute("session");
@@ -33,7 +33,7 @@ public class BoardController {
         }
     }
 
-    @GetMapping("/list")
+    @GetMapping("")
     public ResponseEntity<?> list() {
         List<BoardInfoDto> board = boardService.listBoard();
 
@@ -43,7 +43,7 @@ public class BoardController {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("목록 조회 실패");
     }
 
-    @GetMapping("list/{boardId}")
+    @GetMapping("/{boardId}")
     public ResponseEntity<?> listDetail(@PathVariable int boardId) {
         BoardInfoDetailDto info = boardService.listDetailBoard(boardId);
         
@@ -53,7 +53,7 @@ public class BoardController {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("상세 조회 실패");
     }
 
-    @DeleteMapping("delete/{boardId}")
+    @DeleteMapping("/{boardId}")
     public ResponseEntity<?> deleteBoard(@PathVariable int boardId, @RequestBody Map<String, Integer> requestBody) {
         int memberId = requestBody.get("memberId");
         int cnt = boardService.deleteBoard(boardId, memberId);
