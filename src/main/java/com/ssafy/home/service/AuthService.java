@@ -20,4 +20,8 @@ public class AuthService {
     public String findByPass(String id, String name) {
         return authMapper.findByPass(id, name);
     }
+
+    public MemberDto info(int memberId) {
+        return authMapper.info(memberId);
+    };
 }

@@ -8,4 +8,5 @@ public interface AuthMapper {
 
     MemberDto login(MemberDto memberDto);
     String findByPass(String id, String name);
+    MemberDto info(int memberId);
 }
