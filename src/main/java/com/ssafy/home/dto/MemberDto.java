@@ -21,8 +21,4 @@ public class MemberDto {
 	private boolean admin;
 	private LocalDateTime createdAt;
 	private LocalDateTime updatedAt;
-
-	public boolean getAdmin() {
-		return admin;
-	}
 }

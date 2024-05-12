@@ -1,6 +1,5 @@
 package com.ssafy.home.controller;
 
-import com.ssafy.home.dto.AreaDto;
 import com.ssafy.home.dto.AreaResultDto;
 import com.ssafy.home.service.AreaService;
 import org.springframework.beans.factory.annotation.Autowired;

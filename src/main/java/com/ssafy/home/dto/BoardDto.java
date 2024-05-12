@@ -5,13 +5,13 @@ import lombok.*;
 import java.time.LocalDateTime;
 
 @Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
 public class BoardDto {
 
     private int boardId;
+    @Setter
     private int memberId;
     private String title;
     private String content;
