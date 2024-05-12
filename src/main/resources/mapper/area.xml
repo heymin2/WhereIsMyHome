@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.home.mapper.AreaMapper">
+
+    <select id="findSido" resultType="String">
+        select distinct sido from area
+    </select>
+
+    <select id="findGugun" parameterType="map" resultType="String">
+        select distinct gugun from area where sido = #{sido} and dong is not null
+    </select>
+
+    <select id="findDong" parameterType="map" resultType="String">
+        select distinct dong from area where gugun = #{gugun} and dong is not null
+    </select>
+</mapper>
