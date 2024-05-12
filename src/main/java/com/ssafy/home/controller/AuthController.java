@@ -27,12 +27,7 @@ public class AuthController {
             session.setAttribute("session", member.getMemberId());
 
             LoginDto loginDto = new LoginDto();
-            loginDto.setMemberId(member.getMemberId());
-            loginDto.setName(member.getName());
-            loginDto.setId(member.getId());
-            loginDto.setAdmin(member.getAdmin());
-            loginDto.setEmail(member.getEmail());
-
+            loginDto.update(member);
             return ResponseEntity.ok().body(loginDto);
         }
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인 실패: 사용자 정보가 올바르지 않습니다.");
