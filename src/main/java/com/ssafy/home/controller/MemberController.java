@@ -42,4 +42,14 @@ public class MemberController {
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("수정 실패");
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> validateId(@PathVariable String id) {
+        int cnt = memberService.getMemberById(id);
+
+        if(cnt == 0) {
+            return ResponseEntity.accepted().body("아이디 없음");
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("아이디 존재");
+    }
 }
