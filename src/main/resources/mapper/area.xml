@@ -7,11 +7,11 @@
         select distinct sido from area
     </select>
 
-    <select id="findGugun" parameterType="map" resultType="String">
+    <select id="findGugun" parameterType="String" resultType="String">
         select distinct gugun from area where sido = #{sido} and dong is not null
     </select>
 
-    <select id="findDong" parameterType="map" resultType="String">
+    <select id="findDong" parameterType="String" resultType="String">
         select distinct dong from area where gugun = #{gugun} and dong is not null
     </select>
 </mapper>
