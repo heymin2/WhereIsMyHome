@@ -21,7 +21,7 @@ public class LoginDto {
         this.memberId = member.getMemberId();
         this.name = member.getName();
         this.id = member.getId();
-        this.isAdmin = member.getAdmin();
+        this.isAdmin = member.isAdmin();
         this.email = member.getEmail();
     }
 }
