@@ -2,13 +2,15 @@ package com.ssafy.home.domain.controller;
 
 import com.ssafy.home.domain.dto.BoardDto;
 import com.ssafy.home.domain.dto.BoardInfoDetailDto;
-import com.ssafy.home.domain.dto.BoardInfoDto;
 import com.ssafy.home.domain.service.BoardService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.data.domain.Pageable;
 
 import java.util.*;
 
@@ -34,13 +36,14 @@ public class BoardController {
     }
 
     @GetMapping("")
-    public ResponseEntity<?> list() {
-        List<BoardInfoDto> board = boardService.listBoard();
+    public ResponseEntity<?> list(@RequestParam Map<String, Object> paramMap, @PageableDefault(size = 10) Pageable pageable) {
+        Map<String, Object> resultMap = new HashMap<>();
 
-        if(board != null) {
-            return ResponseEntity.accepted().body(board);
-        }
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("목록 조회 실패");
+        Page<Map<String, Object>> result = boardService.list(paramMap, pageable);
+        resultMap.put("pages", result);
+        resultMap.put("size", pageable.getPageSize());
+
+        return ResponseEntity.ok(resultMap);
     }
 
     @GetMapping("/{boardId}")

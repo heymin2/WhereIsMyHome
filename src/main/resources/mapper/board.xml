@@ -6,10 +6,16 @@
         values ( #{memberId}, #{title}, #{content}, now(), now())
     </insert>
 
-    <select id="listBoard" resultType="boardInfoDto">
-        SELECT b.board_id as boardId, m.id, m.name, b.title, b.created_at as createdAt, b.updated_at as updatedAt
-        FROM board b
-        INNER JOIN member m ON m.member_id = b.member_id
+    <select id="list" parameterType="map" resultType="boardInfoDto">
+            SELECT b.board_id as boardId, m.id, m.name, b.title, b.created_at as createdAt, b.updated_at as updatedAt
+            FROM board b
+            INNER JOIN member m ON m.member_id = b.member_id
+            LIMIT ${offset} , ${pageSize}
+        </select>
+
+    <select id="getListBoardCount" parameterType="boardDto" resultType="int">
+        SELECT COUNT(*) AS CNT
+        FROM BOARD
     </select>
 
     <select id="listDetailBoard" parameterType="int" resultType="boardInfoDetailDto" >

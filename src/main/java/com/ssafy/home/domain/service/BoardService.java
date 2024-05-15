@@ -1,13 +1,16 @@
 package com.ssafy.home.domain.service;
 
 import com.ssafy.home.domain.dto.BoardInfoDetailDto;
-import com.ssafy.home.domain.dto.BoardInfoDto;
 import com.ssafy.home.domain.dto.BoardDto;
 import com.ssafy.home.domain.mapper.BoardMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class BoardService {
@@ -22,8 +25,14 @@ public class BoardService {
         boardMapper.createBoard(boardDto);
     }
 
-    public List<BoardInfoDto> listBoard() {
-        return boardMapper.listBoard();
+    public Page<Map<String, Object>> list(Map<String, Object> paramMap, Pageable pageable) {
+        paramMap.put("offset", pageable.getOffset());
+        paramMap.put("pageSize", pageable.getPageSize());
+
+        List<Map<String, Object>> content = boardMapper.list(paramMap);
+        int cnt = boardMapper.getListBoardCount();
+
+        return new PageImpl<>(content, pageable, cnt);
     }
 
     public BoardInfoDetailDto listDetailBoard(int boardId) {
