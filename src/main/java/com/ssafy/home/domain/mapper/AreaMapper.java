@@ -1,6 +1,5 @@
-package com.ssafy.home.mapper;
+package com.ssafy.home.domain.mapper;
 
-import com.ssafy.home.dto.AreaDto;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

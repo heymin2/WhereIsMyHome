@@ -1,8 +1,8 @@
-package com.ssafy.home.controller;
+package com.ssafy.home.domain.controller;
 
-import com.ssafy.home.dto.LoginDto;
-import com.ssafy.home.dto.MemberDto;
-import com.ssafy.home.service.AuthService;
+import com.ssafy.home.domain.dto.LoginDto;
+import com.ssafy.home.domain.dto.MemberDto;
+import com.ssafy.home.domain.service.AuthService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

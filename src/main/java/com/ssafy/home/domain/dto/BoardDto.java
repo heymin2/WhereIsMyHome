@@ -1,18 +1,18 @@
-package com.ssafy.home.dto;
+package com.ssafy.home.domain.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class BoardInfoDetailDto {
+@ToString
+public class BoardDto {
+
     private int boardId;
-    private String id;
-    private String name;
+    @Setter
+    private int memberId;
     private String title;
     private String content;
     private LocalDateTime createdAt;

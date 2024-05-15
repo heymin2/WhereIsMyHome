@@ -1,6 +1,6 @@
-package com.ssafy.home.controller;
+package com.ssafy.home.domain.controller;
 
-import com.ssafy.home.service.AreaService;
+import com.ssafy.home.domain.service.AreaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

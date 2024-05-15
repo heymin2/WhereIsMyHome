@@ -1,4 +1,4 @@
-package com.ssafy.home.config;
+package com.ssafy.home.common.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

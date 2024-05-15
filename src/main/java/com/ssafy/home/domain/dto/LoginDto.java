@@ -1,4 +1,4 @@
-package com.ssafy.home.dto;
+package com.ssafy.home.domain.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;

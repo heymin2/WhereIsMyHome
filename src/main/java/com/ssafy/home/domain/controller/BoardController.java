@@ -1,9 +1,9 @@
-package com.ssafy.home.controller;
+package com.ssafy.home.domain.controller;
 
-import com.ssafy.home.dto.BoardDto;
-import com.ssafy.home.dto.BoardInfoDetailDto;
-import com.ssafy.home.dto.BoardInfoDto;
-import com.ssafy.home.service.BoardService;
+import com.ssafy.home.domain.dto.BoardDto;
+import com.ssafy.home.domain.dto.BoardInfoDetailDto;
+import com.ssafy.home.domain.dto.BoardInfoDto;
+import com.ssafy.home.domain.service.BoardService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

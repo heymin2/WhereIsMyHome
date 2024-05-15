@@ -1,4 +1,4 @@
-package com.ssafy.home.dto;
+package com.ssafy.home.domain.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,11 +9,12 @@ import java.time.LocalDateTime;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class BoardInfoDto {
+public class BoardInfoDetailDto {
     private int boardId;
     private String id;
     private String name;
     private String title;
+    private String content;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 }

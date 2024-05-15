@@ -1,9 +1,9 @@
-package com.ssafy.home.service;
+package com.ssafy.home.domain.service;
 
-import com.ssafy.home.dto.BoardDto;
-import com.ssafy.home.dto.BoardInfoDetailDto;
-import com.ssafy.home.dto.BoardInfoDto;
-import com.ssafy.home.mapper.BoardMapper;
+import com.ssafy.home.domain.dto.BoardInfoDetailDto;
+import com.ssafy.home.domain.dto.BoardInfoDto;
+import com.ssafy.home.domain.dto.BoardDto;
+import com.ssafy.home.domain.mapper.BoardMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

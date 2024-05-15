@@ -1,4 +1,4 @@
-package com.ssafy.home.config;
+package com.ssafy.home.common.config;
 
 import javax.sql.DataSource;
 

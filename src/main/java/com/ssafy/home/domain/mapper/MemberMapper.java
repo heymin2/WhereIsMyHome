@@ -1,6 +1,6 @@
-package com.ssafy.home.mapper;
+package com.ssafy.home.domain.mapper;
 
-import com.ssafy.home.dto.MemberDto;
+import com.ssafy.home.domain.dto.MemberDto;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper

@@ -1,7 +1,7 @@
-package com.ssafy.home.service;
+package com.ssafy.home.domain.service;
 
-import com.ssafy.home.dto.MemberDto;
-import com.ssafy.home.mapper.MemberMapper;
+import com.ssafy.home.domain.dto.MemberDto;
+import com.ssafy.home.domain.mapper.MemberMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

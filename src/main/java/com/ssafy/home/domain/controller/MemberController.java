@@ -1,7 +1,7 @@
-package com.ssafy.home.controller;
+package com.ssafy.home.domain.controller;
 
-import com.ssafy.home.dto.MemberDto;
-import com.ssafy.home.service.MemberService;
+import com.ssafy.home.domain.dto.MemberDto;
+import com.ssafy.home.domain.service.MemberService;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

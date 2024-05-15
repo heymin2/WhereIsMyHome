@@ -1,8 +1,8 @@
-package com.ssafy.home.mapper;
+package com.ssafy.home.domain.mapper;
 
-import com.ssafy.home.dto.BoardDto;
-import com.ssafy.home.dto.BoardInfoDetailDto;
-import com.ssafy.home.dto.BoardInfoDto;
+import com.ssafy.home.domain.dto.BoardDto;
+import com.ssafy.home.domain.dto.BoardInfoDetailDto;
+import com.ssafy.home.domain.dto.BoardInfoDto;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

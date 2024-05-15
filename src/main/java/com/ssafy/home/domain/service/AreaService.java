@@ -1,7 +1,6 @@
-package com.ssafy.home.service;
+package com.ssafy.home.domain.service;
 
-import com.ssafy.home.dto.AreaDto;
-import com.ssafy.home.mapper.AreaMapper;
+import com.ssafy.home.domain.mapper.AreaMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
