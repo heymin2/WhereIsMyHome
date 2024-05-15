@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ssafy.home.domain.mapper.BoardMapper">
-    <insert id="createBoard" parameterType="com.ssafy.home.domain.dto.BoardDto">
+    <insert id="createBoard" parameterType="boardDto">
         insert into board(member_id, title, content, created_at, updated_at)
         values ( #{memberId}, #{title}, #{content}, now(), now())
     </insert>
 
-    <select id="listBoard" resultType="com.ssafy.home.domain.dto.BoardInfoDto">
+    <select id="listBoard" resultType="boardInfoDto">
         SELECT b.board_id as boardId, m.id, m.name, b.title, b.created_at as createdAt, b.updated_at as updatedAt
         FROM board b
         INNER JOIN member m ON m.member_id = b.member_id
     </select>
 
-    <select id="listDetailBoard" parameterType="int" resultType="com.ssafy.home.domain.dto.BoardInfoDetailDto" >
+    <select id="listDetailBoard" parameterType="int" resultType="boardInfoDetailDto" >
         SELECT b.board_id as boardId, m.id, m.name, b.title, b.content, b.created_at as createdAt, b.updated_at as updatedAt
         FROM board b
         INNER JOIN member m ON m.member_id = b.member_id
         WHERE b.board_id = #{boardId}
     </select>
     
-    <update id="updateBoard" parameterType="com.ssafy.home.domain.dto.BoardDto">
+    <update id="updateBoard" parameterType="boardDto">
         UPDATE board SET title = #{title}, content = #{content}, updated_at = now()
         where board_id = #{boardId} and member_id = #{memberId}
     </update>
