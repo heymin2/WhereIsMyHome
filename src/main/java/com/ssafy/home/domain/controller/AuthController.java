@@ -51,7 +51,11 @@ public class AuthController {
     public ResponseEntity<?> info(HttpSession httpSession) {
         try{
             int memberId = (int) httpSession.getAttribute("session");
-            return ResponseEntity.accepted().body(authService.info(memberId));
+            MemberDto member = authService.info(memberId);
+
+            LoginDto loginDto = new LoginDto();
+            loginDto.update(member);
+            return ResponseEntity.ok().body(loginDto);
         }
         catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("세션 만료");
