@@ -1,6 +1,5 @@
 package com.ssafy.home.domain.dto;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,15 +7,14 @@ import lombok.NoArgsConstructor;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class HouseInfoDto {
+public class StoreInfoDto {
 
-    private int aptId;
-    private int buildYear;
-    private String sigunguCode;
-    private String eubmyundongCode;
-    private String areaId;
+    private int storeId;
+    private int category;
+    private String name;
     private String jibun;
-    private String apartmentName;
+    private String tel;
     private double longitude;
     private double latitude;
+    private String areaId;
 }

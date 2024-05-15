@@ -9,12 +9,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class HouseDealDto {
 
-    int dealId;
-    int aptId;
-    String dealAmount;
-    int dealYear;
-    int dealMonth;
-    int dealDay;
-    String size;
-    String floor;
+    private int dealId;
+    private int aptId;
+    private int dealAmount;
+    private int dealYear;
+    private int dealMonth;
+    private int dealDay;
+    private double size;
+    private int floor;
 }

@@ -9,10 +9,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class AreaDto {
 
-    String areaId;
-    String sido;
-    String gugun;
-    String dong;
-
-
+    private String areaId;
+    private String sido;
+    private String gugun;
+    private String dong;
 }
