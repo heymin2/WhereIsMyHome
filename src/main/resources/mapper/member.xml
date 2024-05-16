@@ -18,6 +18,10 @@
 		SELECT count(*) FROM member WHERE id = #{id}
 	</select>
 
+	<select id="getMemberByEmail" parameterType="String" resultType="int">
+		SELECT count(*) FROM member WHERE email = #{email}
+	</select>
+
 	<select id="findByPass" parameterType="String" resultType="String">
 		select pw from member where id = #{id} and name = #{name}
 	</select>

@@ -41,7 +41,6 @@ public class MemberController {
         }
     }
 
-
     @Operation(summary = "회원수정")
     @ApiResponses(value = { @ApiResponse(responseCode = "200", description = "수정 성공", content = @Content(schema = @Schema(implementation = MemberDto.class))),
             @ApiResponse(responseCode = "404", description = "수정 실패")})
@@ -74,5 +73,15 @@ public class MemberController {
             return ResponseEntity.accepted().body("아이디 없음");
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("아이디 존재");
+    }
+
+    @GetMapping("/email/{email}")
+    public ResponseEntity<?> validateEmail(@PathVariable String email) {
+        int cnt = memberService.getMemberByEmail(email);
+
+        if(cnt == 0) {
+            return ResponseEntity.accepted().body("이메일 없음");
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("이메일 존재");
     }
 }

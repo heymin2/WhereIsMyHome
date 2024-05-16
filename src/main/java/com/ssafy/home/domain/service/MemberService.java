@@ -22,8 +22,12 @@ public class MemberService {
         memberMapper.signUp(memberDto);
     }
 
-    public int getMemberById(String member_id) {
-        return memberMapper.getMemberById(member_id);
+    public int getMemberById(String id) {
+        return memberMapper.getMemberById(id);
+    }
+
+    public int getMemberByEmail(String email) {
+        return memberMapper.getMemberByEmail(email);
     }
 
     @Transactional

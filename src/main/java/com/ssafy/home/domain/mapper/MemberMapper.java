@@ -8,5 +8,6 @@ public interface MemberMapper {
 
     void signUp(MemberDto memberDto);
     int getMemberById(String member_id);
+    int getMemberByEmail(String member_id);
     int updateMember(MemberDto memberDto);
 }
