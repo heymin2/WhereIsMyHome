@@ -17,14 +17,6 @@ public class AuthService {
         return authMapper.login(memberDto);
     }
 
-    public String findByEmail(String id, String name) {
-        return authMapper.findByEmail(id, name);
-    }
-
-    public String findByPass(String id, String name) {
-        return authMapper.findByPass(id, name);
-    }
-
     public MemberDto info(int memberId) {
         return authMapper.info(memberId);
     };
