@@ -8,7 +8,7 @@ import java.util.List;
 @Service
 public class AreaService {
 
-    AreaMapper areaMapper;
+    private final AreaMapper areaMapper;
 
     public AreaService(AreaMapper areaMapper) {
         this.areaMapper = areaMapper;
