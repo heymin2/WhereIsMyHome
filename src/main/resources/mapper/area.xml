@@ -12,6 +12,6 @@
     </select>
 
     <select id="findDong" parameterType="String" resultType="String">
-        select distinct dong from area where gugun = #{gugun} and dong is not null
+        select distinct dong from area where sido=#{sido} and gugun = #{gugun} and dong is not null
     </select>
 </mapper>

@@ -9,5 +9,5 @@ public interface AreaMapper {
 
     List<String> findSido();
     List<String> findGugun(String sido);
-    List<String> findDong(String gugun);
+    List<String> findDong(String sido, String gugun);
 }

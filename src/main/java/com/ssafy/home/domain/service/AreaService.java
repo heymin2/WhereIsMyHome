@@ -21,7 +21,7 @@ public class AreaService {
         return areaMapper.findGugun(sido);
     }
 
-    public List<String> findDong(String gugun){
-        return areaMapper.findDong(gugun);
+    public List<String> findDong(String sido, String gugun){
+        return areaMapper.findDong(sido, gugun);
     }
 }
