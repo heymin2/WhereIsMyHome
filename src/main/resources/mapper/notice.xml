@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.home.domain.mapper.NoticeMapper">
+    <insert id="createNotice" parameterType="boardDto">
+        insert into notice(member_id, title, content, created_at, updated_at)
+        values ( #{memberId}, #{title}, #{content}, now(), now())
+    </insert>
+
+    <select id="list" parameterType="map" resultType="noticeInfoDto">
+        SELECT n.notice_id as noticeId, m.id, m.name, n.title, n.created_at as createdAt, n.updated_at as updatedAt
+        FROM NOTICE n
+                 INNER JOIN member m ON m.member_id = n.member_id
+            LIMIT ${offset} , ${pageSize}
+    </select>
+
+    <select id="getListNoticeCount" parameterType="noticeDto" resultType="int">
+        SELECT COUNT(*) AS CNT
+        FROM NOTICE
+    </select>
+
+    <select id="listDetailNotice" parameterType="int" resultType="noticeInfoDetailDto" >
+        SELECT n.notice_id as noticeId, m.id, m.name, n.title, n.content, n.created_at as createdAt, n.updated_at as updatedAt
+        FROM NOTICE n
+                 INNER JOIN member m ON m.member_id = n.member_id
+        WHERE n.notice_id = #{noticeId}
+    </select>
+
+    <update id="updateNotice" parameterType="noticeDto">
+        UPDATE NOTICE SET title = #{title}, content = #{content}, updated_at = now()
+        where notice_id = #{noticeId} and member_id = #{memberId}
+    </update>
+
+    <delete id="deleteNotice" parameterType="Map">
+        DELETE from NOTICE where notice_id = #{noticeId} and member_id = #{memberId}
+    </delete>
+</mapper>
