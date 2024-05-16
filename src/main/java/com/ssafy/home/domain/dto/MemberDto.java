@@ -12,6 +12,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 @ToString
 public class MemberDto {
 
+	@Setter
 	private int memberId;
 	private String name;
 	private String id;

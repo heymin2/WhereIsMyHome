@@ -49,9 +49,10 @@ public class MemberController {
     public ResponseEntity<?> update(
             @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "수정할 회원정보", required = true, content = @Content(schema = @Schema(implementation = MemberDto.class)))
             @RequestBody MemberDto memberDto, HttpSession session) {
-        MemberDto s = (MemberDto) session.getAttribute("member");
+        try{
+            int memberId = (int) session.getAttribute("session");
+            memberDto.setMemberId(memberId);
 
-        if(s.getId().equals(memberDto.getId())) {
             int cnt = memberService.updateMember(memberDto);
 
             if (cnt == 1) {
@@ -60,7 +61,9 @@ public class MemberController {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("수정 실패");
             }
         }
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("수정 실패");
+        catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("수정 실패");
+        }
     }
 
     @GetMapping("/{id}")
