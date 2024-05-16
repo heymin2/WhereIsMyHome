@@ -57,8 +57,8 @@ public class BoardController {
     }
 
     @DeleteMapping("/{boardId}")
-    public ResponseEntity<?> deleteBoard(@PathVariable int boardId, @RequestBody Map<String, Integer> requestBody) {
-        int memberId = requestBody.get("memberId");
+    public ResponseEntity<?> deleteBoard(@PathVariable int boardId, HttpSession session) {
+        int memberId = (int) session.getAttribute("session");
         int cnt = boardService.deleteBoard(boardId, memberId);
 
         if (cnt == 1) {
@@ -67,8 +67,11 @@ public class BoardController {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("삭제 실패");
     }
 
-    @PutMapping("update")
-    public ResponseEntity<?> updateBoard(@RequestBody BoardDto boardDto) {
+    @PutMapping("")
+    public ResponseEntity<?> updateBoard(@RequestBody BoardDto boardDto, HttpSession session) {
+        int memberId = (int) session.getAttribute("session");
+
+        boardDto.setMemberId(memberId);
         int cnt = boardService.updateBoard(boardDto);
 
         System.out.println(boardDto);
