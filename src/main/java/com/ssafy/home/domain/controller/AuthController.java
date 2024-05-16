@@ -3,6 +3,7 @@ package com.ssafy.home.domain.controller;
 import com.ssafy.home.domain.dto.LoginDto;
 import com.ssafy.home.domain.dto.MemberDto;
 import com.ssafy.home.domain.service.AuthService;
+import com.ssafy.home.domain.service.EmailService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,6 +16,9 @@ public class AuthController {
 
     @Autowired
     private AuthService authService;
+
+    @Autowired
+    private EmailService emailService;
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody MemberDto memberDto, HttpSession session){
@@ -37,12 +41,12 @@ public class AuthController {
     }
 
     @PostMapping("/findPw")
-    public ResponseEntity<?> findByPass(@RequestBody MemberDto memberDto) {
-        String pw = authService.findByPass(memberDto.getId(), memberDto.getName());
-        if(pw != null){
-            return ResponseEntity.accepted().body(pw);
+    public ResponseEntity<?> findByPass(@RequestBody MemberDto memberDto) throws Exception {
+        try{
+            emailService.sendEmailMessage(memberDto.getId(), memberDto.getName());
+            return ResponseEntity.accepted().body("비밀번호 찾기 성공");
         }
-        else{
+        catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("비밀번호 찾기 실패");
         }
     }
