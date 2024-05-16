@@ -1,5 +1,6 @@
 package com.ssafy.home.domain.service;
 
+import com.ssafy.home.domain.dto.AddressInfoDto;
 import com.ssafy.home.domain.dto.HouseInfoDto;
 import com.ssafy.home.domain.dto.HouseRequestDto;
 import com.ssafy.home.domain.mapper.HouseMapper;
@@ -18,5 +19,9 @@ public class HouseService {
 
     public List<HouseInfoDto> houseList(HouseRequestDto houseRequestDto) {
         return houseMapper.houseList(houseRequestDto);
+    }
+
+    public List<AddressInfoDto> dongList(HouseRequestDto houseRequestDto) {
+        return houseMapper.dongList(houseRequestDto);
     }
 }

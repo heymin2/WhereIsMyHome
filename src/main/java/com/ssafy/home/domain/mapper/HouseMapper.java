@@ -1,5 +1,6 @@
 package com.ssafy.home.domain.mapper;
 
+import com.ssafy.home.domain.dto.AddressInfoDto;
 import com.ssafy.home.domain.dto.HouseInfoDto;
 import com.ssafy.home.domain.dto.HouseRequestDto;
 import org.apache.ibatis.annotations.Mapper;
@@ -10,4 +11,5 @@ import java.util.List;
 public interface HouseMapper {
 
     List<HouseInfoDto> houseList(HouseRequestDto houseRequestDto);
+    List<AddressInfoDto> dongList(HouseRequestDto houseRequestDto);
 }

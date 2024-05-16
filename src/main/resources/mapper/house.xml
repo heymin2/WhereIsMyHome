@@ -8,4 +8,12 @@
         WHERE longitude between #{startLongitude} and #{endLongitude}
           AND latitude BETWEEN #{startLatitude} AND #{endLatitude}
     </select>
+
+    <select id="dongList" parameterType="houseRequestDto" resultType="AddressInfoDto">
+        SELECT address_id as addressId, address,  longitude, latitude, amount, address_level as level
+        FROM addressinfo
+        WHERE longitude between #{startLongitude} and #{endLongitude}
+            AND latitude BETWEEN #{startLatitude} AND #{endLatitude}
+            AND address_level = #{level}
+    </select>
 </mapper>

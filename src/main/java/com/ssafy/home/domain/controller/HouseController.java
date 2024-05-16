@@ -1,5 +1,6 @@
 package com.ssafy.home.domain.controller;
 
+import com.ssafy.home.domain.dto.AddressInfoDto;
 import com.ssafy.home.domain.dto.HouseInfoDto;
 import com.ssafy.home.domain.dto.HouseRequestDto;
 import com.ssafy.home.domain.service.HouseService;
@@ -22,6 +23,12 @@ public class HouseController {
     @PostMapping("")
     public ResponseEntity<?> houseList(@RequestBody HouseRequestDto houseRequestDto) {
         List<HouseInfoDto> list = houseService.houseList(houseRequestDto);
+        return ResponseEntity.accepted().body(list);
+    }
+
+    @PostMapping("/area")
+    public ResponseEntity<?> dongList(@RequestBody HouseRequestDto houseRequestDto) {
+        List<AddressInfoDto> list = houseService.dongList(houseRequestDto);
         return ResponseEntity.accepted().body(list);
     }
 }
