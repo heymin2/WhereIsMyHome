@@ -22,13 +22,11 @@ public class HouseController {
 
     @PostMapping("")
     public ResponseEntity<?> houseList(@RequestBody HouseRequestDto houseRequestDto) {
-        List<HouseInfoDto> list = houseService.houseList(houseRequestDto);
-        return ResponseEntity.accepted().body(list);
+        return ResponseEntity.accepted().body(houseService.houseList(houseRequestDto));
     }
 
     @PostMapping("/area")
     public ResponseEntity<?> dongList(@RequestBody HouseRequestDto houseRequestDto) {
-        List<AddressInfoDto> list = houseService.dongList(houseRequestDto);
-        return ResponseEntity.accepted().body(list);
+        return ResponseEntity.accepted().body(houseService.dongList(houseRequestDto));
     }
 }

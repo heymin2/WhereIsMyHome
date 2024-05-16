@@ -17,19 +17,16 @@ public class AreaController {
 
     @GetMapping("")
     public ResponseEntity<?> findSido(){
-        List<String> list = areaService.findSido();
-        return new ResponseEntity<>(list, HttpStatus.OK);
+        return new ResponseEntity<>(areaService.findSido(), HttpStatus.OK);
     }
 
     @GetMapping("/{sido}")
     public ResponseEntity<?> findGugun(@PathVariable String sido){
-        List<String> list = areaService.findGugun(sido);
-        return new ResponseEntity<>(list, HttpStatus.OK);
+        return new ResponseEntity<>(areaService.findGugun(sido), HttpStatus.OK);
     }
 
     @GetMapping("/{sido}/{gugun}")
     public ResponseEntity<?> findDong(@PathVariable String sido, @PathVariable String gugun){
-        List<String> list = areaService.findDong(sido, gugun);
-        return new ResponseEntity<>(list, HttpStatus.OK);
+        return new ResponseEntity<>(areaService.findDong(sido, gugun), HttpStatus.OK);
     }
 }
