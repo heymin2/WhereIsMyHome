@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.home.domain.mapper.HouseMapper">
+    <select id="houseList" parameterType="houseRequestDto" resultType="HouseInfoDto">
+        SELECT apt_id as aptId, build_year as buildYear, sigungu_code as sigunguCode, eubmyundong_code as eubmyundongCode,
+               area_id as areaId, jibun, apartmentName, longitude, latitude
+        FROM houseinfo
+        WHERE longitude between #{startLongitude} and #{endLongitude}
+          AND latitude BETWEEN #{startLatitude} AND #{endLatitude}
+    </select>
+</mapper>
