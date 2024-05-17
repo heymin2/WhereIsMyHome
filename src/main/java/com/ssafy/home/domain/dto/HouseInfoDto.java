@@ -19,4 +19,5 @@ public class HouseInfoDto {
     private String apartmentName;
     private double longitude;
     private double latitude;
+    private int dealAmount;
 }
