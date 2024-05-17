@@ -30,4 +30,14 @@ public class HouseController {
     public ResponseEntity<?> busList(@RequestBody CoordinateRangeRequest request) {
         return ResponseEntity.accepted().body(houseService.busList(request));
     }
+
+    @PostMapping("/food")
+    public ResponseEntity<?> foodList(@RequestBody CoordinateRangeRequest request) {
+        return ResponseEntity.accepted().body(houseService.foodList(request));
+    }
+
+    @PostMapping("/cafe")
+    public ResponseEntity<?> cafeList(@RequestBody CoordinateRangeRequest request) {
+        return ResponseEntity.accepted().body(houseService.cafeList(request));
+    }
 }

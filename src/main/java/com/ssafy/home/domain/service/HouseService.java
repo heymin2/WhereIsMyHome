@@ -3,6 +3,7 @@ package com.ssafy.home.domain.service;
 import com.ssafy.home.domain.dto.AddressInfoDto;
 import com.ssafy.home.domain.dto.BusDto;
 import com.ssafy.home.domain.dto.HouseInfoDto;
+import com.ssafy.home.domain.dto.StoreInfoDto;
 import com.ssafy.home.domain.request.CoordinateRangeRequest;
 import com.ssafy.home.domain.mapper.HouseMapper;
 import org.springframework.stereotype.Service;
@@ -28,5 +29,13 @@ public class HouseService {
 
     public List<BusDto> busList(CoordinateRangeRequest request) {
         return houseMapper.busList(request);
+    }
+
+    public List<StoreInfoDto> foodList(CoordinateRangeRequest request) {
+        return houseMapper.foodList(request);
+    }
+
+    public List<StoreInfoDto> cafeList(CoordinateRangeRequest request) {
+        return houseMapper.cafeList(request);
     }
 }

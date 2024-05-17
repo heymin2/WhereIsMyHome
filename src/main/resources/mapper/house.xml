@@ -51,4 +51,20 @@
         WHERE longitude between #{startLongitude} and #{endLongitude}
         AND latitude BETWEEN #{startLatitude} AND #{endLatitude}
     </select>
+
+    <select id="foodList" parameterType="CoordinateRangeRequest" resultType="StoreInfoDto">
+        SELECT store_id as storeId, category,  name, jibun, tel, longitude, latitude, area_id as areaId
+        FROM storeinfo
+        WHERE longitude between #{startLongitude} and #{endLongitude}
+        AND latitude BETWEEN #{startLatitude} AND #{endLatitude}
+        AND category = 2
+    </select>
+
+    <select id="cafeList" parameterType="CoordinateRangeRequest" resultType="StoreInfoDto">
+        SELECT store_id as storeId, category,  name, jibun, tel, longitude, latitude, area_id as areaId
+        FROM storeinfo
+        WHERE longitude between #{startLongitude} and #{endLongitude}
+          AND latitude BETWEEN #{startLatitude} AND #{endLatitude}
+          AND category = 1
+    </select>
 </mapper>
