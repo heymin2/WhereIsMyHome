@@ -34,4 +34,8 @@ public class ZzimService {
     public List<ZzimDto> search(int memberId) {
         return zzimMapper.search(memberId);
     }
+
+    public int aptCnt(int aptId) {
+        return zzimMapper.aptCnt(aptId);
+    }
 }

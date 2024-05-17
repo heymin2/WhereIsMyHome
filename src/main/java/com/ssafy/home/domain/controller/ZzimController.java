@@ -64,4 +64,9 @@ public class ZzimController {
             return ResponseEntity.accepted().body(zzimService.search((int)memberId));
         }
     }
+
+    @GetMapping("/{aptId}")
+    public ResponseEntity<?> aptCnt(@PathVariable int aptId) {
+        return ResponseEntity.accepted().body(zzimService.aptCnt(aptId));
+    }
 }

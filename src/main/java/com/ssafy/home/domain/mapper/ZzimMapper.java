@@ -13,4 +13,5 @@ public interface ZzimMapper {
      int check(@Param("member_id") int memberId, @Param("apt_id") int aptId);
      int delete(@Param("member_id") int memberId, @Param("apt_id") int aptId);
      List<ZzimDto> search(@Param("member_id") int memberId);
+     int aptCnt(@Param("apt_id") int aptId);
 }

@@ -22,4 +22,10 @@
         WHERE member_id = #{member_id}
         ORDER BY created_at
     </select>
+
+    <select id="aptCnt" parameterType="int" resultType="int">
+        SELECT COUNT(*)
+        FROM zzim
+        WHERE apt_id = #{apt_id}
+    </select>
 </mapper>
