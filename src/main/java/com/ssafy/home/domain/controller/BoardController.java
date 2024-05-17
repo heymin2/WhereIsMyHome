@@ -23,20 +23,20 @@ public class BoardController {
 
     @PostMapping("")
     public ResponseEntity<?> signUp(@RequestBody BoardDto boardDto, HttpSession session) {
-        try{
-            int memberId = (int) session.getAttribute("session");
-
-            boardDto.setMemberId(memberId);
+        Object memberId = session.getAttribute("session");
+        
+        if(memberId == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인 필요");
+        }
+        else {
+            boardDto.setMemberId((int)memberId);
             boardService.createBoard(boardDto);
             return ResponseEntity.accepted().body("글쓰기 성공");
-        }
-        catch (Exception e){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("글쓰기 실패");
         }
     }
 
     @GetMapping("")
-    public ResponseEntity<?> list(@RequestParam Map<String, Object> paramMap, @PageableDefault(size = 10) Pageable pageable) {
+    public ResponseEntity<?> list(@RequestParam Map<String, Object> paramMap, @PageableDefault(size = 10) Pageable pageable, HttpSession session) {
         Map<String, Object> resultMap = new HashMap<>();
 
         Page<Map<String, Object>> result = boardService.list(paramMap, pageable);
@@ -69,16 +69,16 @@ public class BoardController {
 
     @PutMapping("")
     public ResponseEntity<?> updateBoard(@RequestBody BoardDto boardDto, HttpSession session) {
-        int memberId = (int) session.getAttribute("session");
+        Object memberId = session.getAttribute("session");
 
-        boardDto.setMemberId(memberId);
-        int cnt = boardService.updateBoard(boardDto);
-
-        System.out.println(boardDto);
-
-        if (cnt == 1) {
-            return ResponseEntity.accepted().body("수정 성공");
+        if(memberId == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("세션 만료");
         }
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("수정 실패");
+        else {
+            if(boardService.updateBoard(boardDto) == 1) {
+                return ResponseEntity.accepted().body("수정 성공");
+            }
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("수정 실패");
+        }
     }
 }
