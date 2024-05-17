@@ -11,11 +11,11 @@
         select distinct gugun from area where sido = #{sido} and dong is not null
     </select>
 
-    <select id="findDong" parameterType="String" resultType="String">
+    <select id="findDong" parameterType="map" resultType="String">
         select distinct dong from area where sido=#{sido} and gugun = #{gugun} and dong is not null
     </select>
 
-    <select id="findArea" parameterType="map" resultType="HouseInfoDto">
+    <select id="findArea" parameterType="map" resultType="HouseInfoRequest">
         WITH LatestDeals AS (
             SELECT
                 housedeal.apt_id,

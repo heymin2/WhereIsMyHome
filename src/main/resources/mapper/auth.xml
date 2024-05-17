@@ -2,17 +2,17 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.ssafy.home.domain.mapper.AuthMapper">
-    <select id="login" parameterType="memberDto" resultType="memberDto">
+    <select id="login" parameterType="map" resultType="memberDto">
         select member_id as memberId, name, id, pw, phone, email, is_admin as admin, created_at as createdAt, updated_at as updatedAt
         from member
         where id = #{id} and pw = #{pw}
     </select>
 
-    <select id="findByPass" parameterType="String" resultType="String">
+    <select id="findByPass" parameterType="map" resultType="String">
         select pw from member where id = #{id} and name = #{name}
     </select>
 
-    <select id="findByEmail" parameterType="String" resultType="String">
+    <select id="findByEmail" parameterType="map" resultType="String">
         select email from member where id = #{id} and name = #{name}
     </select>
 

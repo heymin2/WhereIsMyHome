@@ -13,8 +13,8 @@ public class AuthService {
         this.authMapper = authMapper;
     }
 
-    public MemberDto login(MemberDto memberDto){
-        return authMapper.login(memberDto);
+    public MemberDto login(String id, String pass){
+        return authMapper.login(id, pass);
     }
 
     public MemberDto info(int memberId) {

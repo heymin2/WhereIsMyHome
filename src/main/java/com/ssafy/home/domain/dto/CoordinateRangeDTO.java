@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class HouseRequestDto {
+public class CoordinateRangeDTO {
 
     private double startLongitude;
     private double endLongitude;

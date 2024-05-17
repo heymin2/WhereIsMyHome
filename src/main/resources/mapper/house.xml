@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ssafy.home.domain.mapper.HouseMapper">
-    <select id="houseList" parameterType="houseRequestDto" resultType="HouseInfoDto">
+    <select id="houseList" parameterType="CoordinateRangeDto" resultType="HouseInfoRequest">
         WITH LatestDeals AS (
             SELECT
                 housedeal.apt_id,
@@ -34,7 +34,7 @@
           AND houseinfo.latitude BETWEEN #{startLatitude} AND #{endLatitude}
     </select>
 
-    <select id="dongList" parameterType="houseRequestDto" resultType="AddressInfoDto">
+    <select id="dongList" parameterType="CoordinateRangeDto" resultType="AddressInfoDto">
         SELECT address_id as addressId, address,  longitude, latitude, amount, address_level as level
         FROM addressinfo
         WHERE longitude between #{startLongitude} and #{endLongitude}

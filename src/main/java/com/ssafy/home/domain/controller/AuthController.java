@@ -1,6 +1,8 @@
 package com.ssafy.home.domain.controller;
 
 import com.ssafy.home.domain.dto.LoginDto;
+import com.ssafy.home.domain.request.FindPwRequest;
+import com.ssafy.home.domain.request.LoginRequest;
 import com.ssafy.home.domain.dto.MemberDto;
 import com.ssafy.home.domain.service.AuthService;
 import com.ssafy.home.domain.service.EmailService;
@@ -21,8 +23,8 @@ public class AuthController {
     private EmailService emailService;
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody MemberDto memberDto, HttpSession session){
-        MemberDto member = authService.login(memberDto);
+    public ResponseEntity<?> login(@RequestBody LoginRequest request, HttpSession session){
+        MemberDto member = authService.login(request.getId(), request.getPw());
 
         if(member != null) {
             session.setAttribute("session", member.getMemberId());
@@ -41,9 +43,9 @@ public class AuthController {
     }
 
     @PostMapping("/findPw")
-    public ResponseEntity<?> findByPass(@RequestBody MemberDto memberDto) throws Exception {
+    public ResponseEntity<?> findByPass(@RequestBody FindPwRequest request) throws Exception {
         try{
-            emailService.sendEmailMessage(memberDto.getId(), memberDto.getName());
+            emailService.sendEmailMessage(request.getId(), request.getName());
             return ResponseEntity.accepted().body("비밀번호 찾기 성공");
         }
         catch (Exception e) {
