@@ -22,4 +22,9 @@ public class ZzimService {
         }
         return false;
     }
+
+    @Transactional
+    public int delete(int memberId, Integer aptId) {
+        return zzimMapper.delete(memberId, aptId);
+    }
 }

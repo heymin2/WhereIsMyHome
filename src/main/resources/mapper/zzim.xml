@@ -11,4 +11,8 @@
         FROM zzim
         WHERE member_id = #{member_id} AND apt_id = #{apt_id}
     </select>
+
+    <delete id="delete" parameterType="Map">
+        DELETE from zzim where apt_id = #{apt_id} and member_id = #{member_id}
+    </delete>
 </mapper>

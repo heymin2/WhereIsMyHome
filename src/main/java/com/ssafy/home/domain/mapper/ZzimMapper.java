@@ -8,4 +8,5 @@ public interface ZzimMapper {
 
      void likeApt(@Param("member_id") int memberId, @Param("apt_id") int aptId);
      int check(@Param("member_id") int memberId, @Param("apt_id") int aptId);
+     int delete(@Param("member_id") int memberId, @Param("apt_id") int aptId);
 }
