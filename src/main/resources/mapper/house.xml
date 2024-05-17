@@ -6,6 +6,7 @@
             SELECT
                 housedeal.apt_id,
                 housedeal.deal_amount,
+                housedeal.size,
                 ROW_NUMBER() OVER (
             PARTITION BY housedeal.apt_id
             ORDER BY housedeal.deal_year DESC, housedeal.deal_month DESC, housedeal.deal_day DESC
@@ -23,15 +24,17 @@
             houseinfo.apartmentName,
             houseinfo.longitude,
             houseinfo.latitude,
-            LatestDeals.deal_amount AS dealAmount
-        FROM
-            houseinfo
-                INNER JOIN
-            LatestDeals ON houseinfo.apt_id = LatestDeals.apt_id
-        WHERE
-            LatestDeals.rn = 1
-          AND houseinfo.longitude BETWEEN #{startLongitude} AND #{endLongitude}
-          AND houseinfo.latitude BETWEEN #{startLatitude} AND #{endLatitude}
+            LatestDeals.deal_amount AS dealAmount,
+            LatestDeals.size,
+            area.sido,
+            area.gugun,
+            area.dong
+        FROM houseinfo
+        INNER JOIN LatestDeals ON houseinfo.apt_id = LatestDeals.apt_id
+        INNER JOIN area ON houseinfo.area_id = area.area_id
+        WHERE LatestDeals.rn = 1
+        AND houseinfo.longitude BETWEEN #{startLongitude} AND #{endLongitude}
+        AND houseinfo.latitude BETWEEN #{startLatitude} AND #{endLatitude}
     </select>
 
     <select id="dongList" parameterType="CoordinateRangeDto" resultType="AddressInfoDto">

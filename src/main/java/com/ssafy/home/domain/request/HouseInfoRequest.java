@@ -15,9 +15,13 @@ public class HouseInfoRequest {
     private String sigunguCode;
     private String eubmyundongCode;
     private String areaId;
+    private String sido;
+    private String gugun;
+    private String dong;
     private String jibun;
     private String apartmentName;
     private double longitude;
     private double latitude;
     private int dealAmount;
+    private double size;
 }
