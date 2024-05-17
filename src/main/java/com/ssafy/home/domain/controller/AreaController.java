@@ -27,4 +27,9 @@ public class AreaController {
     public ResponseEntity<?> findDong(@PathVariable String sido, @PathVariable String gugun){
         return new ResponseEntity<>(areaService.findDong(sido, gugun), HttpStatus.OK);
     }
+
+    @GetMapping("/{sido}/{gugun}/{dong}")
+    public ResponseEntity<?> findArea(@PathVariable String sido, @PathVariable String gugun, @PathVariable String dong){
+        return new ResponseEntity<>(areaService.fingArea(sido, gugun, dong), HttpStatus.OK);
+    }
 }

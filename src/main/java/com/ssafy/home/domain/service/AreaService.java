@@ -1,5 +1,6 @@
 package com.ssafy.home.domain.service;
 
+import com.ssafy.home.domain.dto.HouseInfoDto;
 import com.ssafy.home.domain.mapper.AreaMapper;
 import org.springframework.stereotype.Service;
 
@@ -23,5 +24,9 @@ public class AreaService {
 
     public List<String> findDong(String sido, String gugun){
         return areaMapper.findDong(sido, gugun);
+    }
+
+    public List<HouseInfoDto> fingArea(String sido, String gugun, String dong) {
+        return areaMapper.findArea(sido, gugun, dong);
     }
 }

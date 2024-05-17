@@ -14,4 +14,36 @@
     <select id="findDong" parameterType="String" resultType="String">
         select distinct dong from area where sido=#{sido} and gugun = #{gugun} and dong is not null
     </select>
+
+    <select id="findArea" parameterType="map" resultType="HouseInfoDto">
+        WITH LatestDeals AS (
+            SELECT
+                housedeal.apt_id,
+                housedeal.deal_amount,
+                ROW_NUMBER() OVER (
+            PARTITION BY housedeal.apt_id
+            ORDER BY housedeal.deal_year DESC, housedeal.deal_month DESC, housedeal.deal_day DESC
+        ) AS rn
+            FROM
+                housedeal
+        )
+        SELECT
+            houseinfo.apt_id AS aptId,
+            houseinfo.build_year AS buildYear,
+            houseinfo.sigungu_code AS sigunguCode,
+            houseinfo.eubmyundong_code AS eubmyundongCode,
+            houseinfo.area_id AS areaId,
+            houseinfo.jibun,
+            houseinfo.apartmentName,
+            houseinfo.longitude,
+            houseinfo.latitude,
+            LatestDeals.deal_amount AS dealAmount
+        FROM
+            houseinfo
+                INNER JOIN
+            LatestDeals ON houseinfo.apt_id = LatestDeals.apt_id
+        WHERE
+            LatestDeals.rn = 1
+            and area_id = (select area_id from area where sido= #{sido} and gugun = #{gugun} and dong = #{dong})
+    </select>
 </mapper>
