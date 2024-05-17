@@ -44,4 +44,11 @@
             AND latitude BETWEEN #{startLatitude} AND #{endLatitude}
             AND address_level = #{level}
     </select>
+
+    <select id="busList" parameterType="CoordinateRangeRequest" resultType="BusDto">
+        SELECT bus_id as busId, name,  longitude, latitude
+        FROM bus
+        WHERE longitude between #{startLongitude} and #{endLongitude}
+        AND latitude BETWEEN #{startLatitude} AND #{endLatitude}
+    </select>
 </mapper>

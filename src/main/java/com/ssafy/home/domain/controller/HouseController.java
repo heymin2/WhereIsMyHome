@@ -28,6 +28,6 @@ public class HouseController {
 
     @PostMapping("/bus")
     public ResponseEntity<?> busList(@RequestBody CoordinateRangeRequest request) {
-        return ResponseEntity.accepted().body(houseService.dongList(request));
+        return ResponseEntity.accepted().body(houseService.busList(request));
     }
 }
