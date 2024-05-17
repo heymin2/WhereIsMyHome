@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.home.domain.mapper.ZzimMapper">
+    <insert id="likeApt" parameterType="map">
+        insert into zzim(member_id, apt_id, created_at)
+        values ( #{member_id}, #{apt_id}, now())
+    </insert>
+
+    <select id="check" parameterType="map" resultType="int">
+        SELECT COUNT(*) AS CNT
+        FROM zzim
+        WHERE member_id = #{member_id} AND apt_id = #{apt_id}
+    </select>
+</mapper>
