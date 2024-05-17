@@ -32,4 +32,9 @@ public class AreaController {
     public ResponseEntity<?> findArea(@PathVariable String sido, @PathVariable String gugun, @PathVariable String dong){
         return new ResponseEntity<>(areaService.fingArea(sido, gugun, dong), HttpStatus.OK);
     }
+
+    @GetMapping("/apt/{aptId}")
+    public ResponseEntity<?> aptInfo(@PathVariable String aptId){
+        return new ResponseEntity<>(areaService.aptInfo(aptId), HttpStatus.OK);
+    }
 }

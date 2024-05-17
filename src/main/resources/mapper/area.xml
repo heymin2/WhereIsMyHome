@@ -73,4 +73,26 @@
             LatestDeals.rn = 1
             and houseinfo.area_id = (select area_id from area where sido= #{sido} and gugun = #{gugun} and dong = #{dong})
     </select>
+
+    <select id="aptInfo" parameterType="String" resultType="HouseDto">
+        SELECT
+            houseinfo.apt_id AS aptId,
+            houseinfo.build_year AS buildYear,
+            houseinfo.area_id AS areaId,
+            area.sido,
+            area.gugun,
+            area.dong,
+            houseinfo.jibun,
+            houseinfo.apartmentName,
+            housedeal.deal_amount AS dealAmount,
+            housedeal.size,
+            housedeal.floor,
+            housedeal.deal_year as dealYear,
+            housedeal.deal_month as dealMonth,
+            housedeal.deal_day as dealDay
+        FROM houseinfo
+                 INNER JOIN housedeal ON houseinfo.apt_id = housedeal.apt_id
+                 INNER JOIN area ON houseinfo.area_id = area.area_id
+        WHERE houseinfo.apt_id = #{aptId}
+    </select>
 </mapper>

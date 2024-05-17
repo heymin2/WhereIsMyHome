@@ -1,6 +1,7 @@
 package com.ssafy.home.domain.service;
 
 import com.ssafy.home.domain.dto.AreaInfoDto;
+import com.ssafy.home.domain.dto.HouseDto;
 import com.ssafy.home.domain.dto.HouseInfoDto;
 import com.ssafy.home.domain.mapper.AreaMapper;
 import org.springframework.stereotype.Service;
@@ -49,5 +50,9 @@ public class AreaService {
 
     public List<HouseInfoDto> fingArea(String sido, String gugun, String dong) {
         return areaMapper.findArea(sido, gugun, dong);
+    }
+
+    public List<HouseDto> aptInfo(String aptId) {
+        return areaMapper.aptInfo(aptId);
     }
 }
