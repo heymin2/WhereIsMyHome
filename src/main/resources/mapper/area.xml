@@ -94,5 +94,6 @@
                  INNER JOIN housedeal ON houseinfo.apt_id = housedeal.apt_id
                  INNER JOIN area ON houseinfo.area_id = area.area_id
         WHERE houseinfo.apt_id = #{aptId}
+        ORDER BY deal_year, deal_month, deal_day
     </select>
 </mapper>
