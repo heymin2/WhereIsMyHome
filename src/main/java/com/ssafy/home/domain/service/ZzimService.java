@@ -1,8 +1,11 @@
 package com.ssafy.home.domain.service;
 
+import com.ssafy.home.domain.dto.ZzimDto;
 import com.ssafy.home.domain.mapper.ZzimMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 public class ZzimService {
@@ -26,5 +29,9 @@ public class ZzimService {
     @Transactional
     public int delete(int memberId, Integer aptId) {
         return zzimMapper.delete(memberId, aptId);
+    }
+
+    public List<ZzimDto> search(int memberId) {
+        return zzimMapper.search(memberId);
     }
 }

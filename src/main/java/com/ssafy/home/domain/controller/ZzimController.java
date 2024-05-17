@@ -52,4 +52,16 @@ public class ZzimController {
             }
         }
     }
+
+    @GetMapping("")
+    public ResponseEntity<?> delete(HttpSession session) {
+        Object memberId = session.getAttribute("session");
+
+        if(memberId == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인 필요");
+        }
+        else {
+            return ResponseEntity.accepted().body(zzimService.search((int)memberId));
+        }
+    }
 }
