@@ -1,7 +1,7 @@
 package com.ssafy.home.domain.mapper;
 
-import com.ssafy.home.domain.request.AreaRequest;
-import com.ssafy.home.domain.request.HouseInfoRequest;
+import com.ssafy.home.domain.dto.AreaInfoDto;
+import com.ssafy.home.domain.dto.HouseInfoDto;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -11,10 +11,10 @@ import java.util.List;
 public interface AreaMapper {
 
     List<String> findSido();
-    List<AreaRequest> sidoInfo(String sido);
+    List<AreaInfoDto> sidoInfo(String sido);
     List<String> findGugun(String sido);
-    List<AreaRequest> gugunInfo(@Param("sido") String sido, @Param("gugun") String gugun);
+    List<AreaInfoDto> gugunInfo(@Param("sido") String sido, @Param("gugun") String gugun);
     List<String> findDong(@Param("sido") String sido, @Param("gugun") String gugun);
-    List<AreaRequest> dongInfo(@Param("sido") String sido, @Param("gugun") String gugun, @Param("dong") String dong);
-    List<HouseInfoRequest> findArea(@Param("sido") String sido, @Param("gugun") String gugun, @Param("dong") String dong);
+    List<AreaInfoDto> dongInfo(@Param("sido") String sido, @Param("gugun") String gugun, @Param("dong") String dong);
+    List<HouseInfoDto> findArea(@Param("sido") String sido, @Param("gugun") String gugun, @Param("dong") String dong);
 }

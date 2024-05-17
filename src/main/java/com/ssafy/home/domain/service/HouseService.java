@@ -1,8 +1,8 @@
 package com.ssafy.home.domain.service;
 
 import com.ssafy.home.domain.dto.AddressInfoDto;
-import com.ssafy.home.domain.request.HouseInfoRequest;
-import com.ssafy.home.domain.dto.CoordinateRangeDTO;
+import com.ssafy.home.domain.dto.HouseInfoDto;
+import com.ssafy.home.domain.request.CoordinateRangeRequest;
 import com.ssafy.home.domain.mapper.HouseMapper;
 import org.springframework.stereotype.Service;
 
@@ -17,11 +17,11 @@ public class HouseService {
         this.houseMapper = houseMapper;
     }
 
-    public List<HouseInfoRequest> houseList(CoordinateRangeDTO coordinateRangeDTO) {
-        return houseMapper.houseList(coordinateRangeDTO);
+    public List<HouseInfoDto> houseList(CoordinateRangeRequest coordinateRangeRequest) {
+        return houseMapper.houseList(coordinateRangeRequest);
     }
 
-    public List<AddressInfoDto> dongList(CoordinateRangeDTO coordinateRangeDTO) {
-        return houseMapper.dongList(coordinateRangeDTO);
+    public List<AddressInfoDto> dongList(CoordinateRangeRequest coordinateRangeRequest) {
+        return houseMapper.dongList(coordinateRangeRequest);
     }
 }

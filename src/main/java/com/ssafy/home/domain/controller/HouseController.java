@@ -1,6 +1,6 @@
 package com.ssafy.home.domain.controller;
 
-import com.ssafy.home.domain.dto.CoordinateRangeDTO;
+import com.ssafy.home.domain.request.CoordinateRangeRequest;
 import com.ssafy.home.domain.service.HouseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,12 +17,17 @@ public class HouseController {
     private HouseService houseService;
 
     @PostMapping("")
-    public ResponseEntity<?> houseList(@RequestBody CoordinateRangeDTO houseRequestDto) {
-        return ResponseEntity.accepted().body(houseService.houseList(houseRequestDto));
+    public ResponseEntity<?> houseList(@RequestBody CoordinateRangeRequest request) {
+        return ResponseEntity.accepted().body(houseService.houseList(request));
     }
 
     @PostMapping("/area")
-    public ResponseEntity<?> dongList(@RequestBody CoordinateRangeDTO houseRequestDto) {
-        return ResponseEntity.accepted().body(houseService.dongList(houseRequestDto));
+    public ResponseEntity<?> dongList(@RequestBody CoordinateRangeRequest request) {
+        return ResponseEntity.accepted().body(houseService.dongList(request));
+    }
+
+    @PostMapping("/bus")
+    public ResponseEntity<?> busList(@RequestBody CoordinateRangeRequest request) {
+        return ResponseEntity.accepted().body(houseService.dongList(request));
     }
 }

@@ -1,4 +1,4 @@
-package com.ssafy.home.domain.dto;
+package com.ssafy.home.domain.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class CoordinateRangeDTO {
+public class CoordinateRangeRequest {
 
     private double startLongitude;
     private double endLongitude;

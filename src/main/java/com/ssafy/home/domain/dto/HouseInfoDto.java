@@ -1,4 +1,4 @@
-package com.ssafy.home.domain.request;
+package com.ssafy.home.domain.dto;
 
 
 import lombok.AllArgsConstructor;
@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class HouseInfoRequest {
+public class HouseInfoDto {
 
     private int aptId;
     private int buildYear;

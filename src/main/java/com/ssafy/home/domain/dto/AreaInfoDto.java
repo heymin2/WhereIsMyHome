@@ -1,4 +1,4 @@
-package com.ssafy.home.domain.request;
+package com.ssafy.home.domain.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class AreaRequest {
+public class AreaInfoDto {
 
     private String address;
     private double longitude;
