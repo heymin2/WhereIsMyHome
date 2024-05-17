@@ -77,6 +77,7 @@
     <select id="aptInfo" parameterType="String" resultType="HouseDto">
         SELECT
             houseinfo.apt_id AS aptId,
+            housedeal.deal_id AS dealId,
             houseinfo.build_year AS buildYear,
             houseinfo.area_id AS areaId,
             area.sido,

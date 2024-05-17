@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 public class HouseDto {
 
     private int aptId;
+    private int dealId;
     private int buildYear;
     private String areaId;
     private String sido;
