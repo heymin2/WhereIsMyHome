@@ -7,12 +7,35 @@
         select distinct sido from area
     </select>
 
+    <select id="sidoInfo" parameterType="String" resultType="AreaRequest">
+        select #{sido} as address, longitude, latitude
+        from addressinfo
+        where address_level = 1 and address like #{sido}
+    </select>
+
     <select id="findGugun" parameterType="String" resultType="String">
         select distinct gugun from area where sido = #{sido} and dong is not null
     </select>
 
+    <select id="gugunInfo" parameterType="String" resultType="AreaRequest">
+        select #{gugun} as address, longitude, latitude
+        from addressinfo
+        where address_level = 2
+        and address like CONCAT('%', #{sido}, '%')
+        and address like CONCAT('%', #{gugun}, '%')
+    </select>
+
     <select id="findDong" parameterType="map" resultType="String">
         select distinct dong from area where sido=#{sido} and gugun = #{gugun} and dong is not null
+    </select>
+
+    <select id="dongInfo" parameterType="String" resultType="AreaRequest">
+        select #{dong} as address, longitude, latitude
+        from addressinfo
+        where address_level = 3
+        and address like CONCAT('%', #{sido}, '%')
+        and address like CONCAT('%', #{gugun}, '%')
+        and address like CONCAT('%', #{dong}, '%')
     </select>
 
     <select id="findArea" parameterType="map" resultType="HouseInfoRequest">
