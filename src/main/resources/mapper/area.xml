@@ -30,12 +30,12 @@
     </select>
 
     <select id="dongInfo" parameterType="String" resultType="AreaInfoDto">
-        select #{dong} as address, longitude, latitude
-        from addressinfo
-        where address_level = 3
-        and address like CONCAT('%', #{sido}, '%')
-        and address like CONCAT('%', #{gugun}, '%')
-        and address like CONCAT('%', #{dong}, '%')
+        SELECT longitude, latitude
+        FROM addressinfo
+        WHERE address_level = 3
+          AND address LIKE CONCAT('%', #{sido}, '%')
+          AND address LIKE CONCAT('%', #{gugun}, '%')
+          AND address LIKE CONCAT('%', #{dong}, '%');
     </select>
 
     <select id="findArea" parameterType="map" resultType="HouseInfoDto">

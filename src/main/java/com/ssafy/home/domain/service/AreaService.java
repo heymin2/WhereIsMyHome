@@ -47,8 +47,11 @@ public class AreaService {
         List<AreaInfoDto> result = new ArrayList<>();
 
         for (String dong : gugunList) {
-            result.addAll(areaMapper.dongInfo(sido, gugun, dong));
+            List<AreaInfoDto> dongInfoList = areaMapper.dongInfo(sido, gugun, dong);
+            dongInfoList.get(0).setAddress(dong);
+            result.add(dongInfoList.get(0));
         }
+
         return result;
     }
 
