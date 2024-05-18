@@ -1,6 +1,7 @@
 package com.ssafy.home.domain.controller;
 
 import com.ssafy.home.domain.service.AreaService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,7 +35,13 @@ public class AreaController {
     }
 
     @GetMapping("/apt/{aptId}")
-    public ResponseEntity<?> aptInfo(@PathVariable String aptId){
-        return new ResponseEntity<>(areaService.aptInfo(aptId), HttpStatus.OK);
+    public ResponseEntity<?> aptInfo(@PathVariable int aptId, HttpSession session){
+        Object memberId = session.getAttribute("session");
+        return new ResponseEntity<>(areaService.aptInfo(aptId, memberId), HttpStatus.OK);
+    }
+
+    @GetMapping("/deal/{aptId}")
+    public ResponseEntity<?> aptDeal(@PathVariable int aptId){
+        return new ResponseEntity<>(areaService.aptDeal(aptId), HttpStatus.OK);
     }
 }

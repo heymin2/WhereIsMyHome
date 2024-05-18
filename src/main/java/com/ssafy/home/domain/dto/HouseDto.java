@@ -3,6 +3,7 @@ package com.ssafy.home.domain.dto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
 @AllArgsConstructor
@@ -10,7 +11,6 @@ import lombok.NoArgsConstructor;
 public class HouseDto {
 
     private int aptId;
-    private int dealId;
     private int buildYear;
     private String areaId;
     private String sido;
@@ -18,10 +18,5 @@ public class HouseDto {
     private String dong;
     private String jibun;
     private String apartmentName;
-    private int floor;
-    private double size;
-    private int dealAmount;
-    private int dealYear;
-    private int dealMonth;
-    private int dealDay;
+    private boolean zzim;
 }

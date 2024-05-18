@@ -74,10 +74,9 @@
             and houseinfo.area_id = (select area_id from area where sido= #{sido} and gugun = #{gugun} and dong = #{dong})
     </select>
 
-    <select id="aptInfo" parameterType="String" resultType="HouseDto">
+    <select id="aptInfo" parameterType="map" resultType="HouseDto">
         SELECT
             houseinfo.apt_id AS aptId,
-            housedeal.deal_id AS dealId,
             houseinfo.build_year AS buildYear,
             houseinfo.area_id AS areaId,
             area.sido,
@@ -85,6 +84,15 @@
             area.dong,
             houseinfo.jibun,
             houseinfo.apartmentName,
+            #{zzim} as zzim
+        FROM houseinfo
+        INNER JOIN area ON houseinfo.area_id = area.area_id
+        WHERE houseinfo.apt_id = #{apt_id}
+    </select>
+
+    <select id="aptDeal" parameterType="int" resultType="HouseDealDto">
+        SELECT
+            housedeal.deal_id AS dealId,
             housedeal.deal_amount AS dealAmount,
             housedeal.size,
             housedeal.floor,
@@ -92,9 +100,8 @@
             housedeal.deal_month as dealMonth,
             housedeal.deal_day as dealDay
         FROM houseinfo
-                 INNER JOIN housedeal ON houseinfo.apt_id = housedeal.apt_id
-                 INNER JOIN area ON houseinfo.area_id = area.area_id
+        INNER JOIN housedeal ON houseinfo.apt_id = housedeal.apt_id
         WHERE houseinfo.apt_id = #{aptId}
-        ORDER BY deal_year, deal_month, deal_day
+        ORDER BY deal_year desc, deal_month desc, deal_day desc
     </select>
 </mapper>

@@ -1,9 +1,11 @@
 package com.ssafy.home.domain.service;
 
 import com.ssafy.home.domain.dto.AreaInfoDto;
+import com.ssafy.home.domain.dto.HouseDealDto;
 import com.ssafy.home.domain.dto.HouseDto;
 import com.ssafy.home.domain.dto.HouseInfoDto;
 import com.ssafy.home.domain.mapper.AreaMapper;
+import com.ssafy.home.domain.mapper.ZzimMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -13,9 +15,11 @@ import java.util.List;
 public class AreaService {
 
     private final AreaMapper areaMapper;
+    private final ZzimMapper zzimMapper;
 
-    public AreaService(AreaMapper areaMapper) {
+    public AreaService(AreaMapper areaMapper, ZzimMapper zzimMapper) {
         this.areaMapper = areaMapper;
+        this.zzimMapper = zzimMapper;
     }
 
     public List<AreaInfoDto> findSido() {
@@ -52,7 +56,19 @@ public class AreaService {
         return areaMapper.findArea(sido, gugun, dong);
     }
 
-    public List<HouseDto> aptInfo(String aptId) {
-        return areaMapper.aptInfo(aptId);
+    public HouseDto aptInfo(int aptId, Object memberId) {
+        boolean zzim = false;
+        if(memberId != null){
+            int cnt = zzimMapper.check((int) memberId, aptId);
+
+            if (cnt == 1) {
+                zzim = true;
+            }
+        }
+        return areaMapper.aptInfo(aptId, zzim);
+    }
+
+    public List<HouseDealDto> aptDeal(int aptId) {
+        return areaMapper.aptDeal(aptId);
     }
 }

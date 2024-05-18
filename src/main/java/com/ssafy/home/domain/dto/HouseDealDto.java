@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
 public class HouseDealDto {
 
     private int dealId;
-    private int aptId;
     private int dealAmount;
     private int dealYear;
     private int dealMonth;
