@@ -118,4 +118,12 @@
         AND latitude BETWEEN #{startLatitude} AND #{endLatitude}
         AND category = #{level}
     </select>
+
+    <select id="aptFood" parameterType="CoordinateRangeRequest" resultType="FoodDto">
+        select store_id as storeId, name, jibun, tel, longitude, latitude
+        from storeinfo
+        WHERE longitude between #{startLongitude} and #{endLongitude}
+          AND latitude BETWEEN #{startLatitude} AND #{endLatitude}
+          AND category = #{level}
+    </select>
 </mapper>

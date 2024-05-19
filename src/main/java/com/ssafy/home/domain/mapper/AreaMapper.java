@@ -21,4 +21,5 @@ public interface AreaMapper {
     List<HouseDealDto> aptDeal(int aptId);
     HouseCoordDto aptCoord(int aptId);
     List<CafeDto> aptCafe(CoordinateRangeRequest request);
+    List<FoodDto> aptFood(CoordinateRangeRequest request);
 }

@@ -112,8 +112,6 @@ public class AreaService {
                 .level(1)
                 .build();
 
-        System.out.println(request);
-
         List<CafeDto> cafe = areaMapper.aptCafe(request);
 
         System.out.println(cafe);
@@ -130,5 +128,43 @@ public class AreaService {
 
         cafeList.sort((Comparator.comparingInt(CafeDto::getDistance)));
         return cafeList;
+    }
+
+    public List<FoodDto> aptFood(int aptId) {
+        HouseCoordDto coord = areaMapper.aptCoord(aptId);
+
+        double nowLatitude = coord.getLatitude();
+        double nowLongitude = coord.getLongitude();
+
+        double mForLatitude =(1 /(EARTH_RADIUS* 1 *(Math.PI/ 180)))/ 1000;
+        double mForLongitude =(1 /(EARTH_RADIUS* 1 *(Math.PI/ 180)* Math.cos(Math.toRadians(nowLatitude))))/ 1000;
+
+        double maxY = nowLatitude +  (mForLatitude * 1000);
+        double minY = nowLatitude -  (mForLatitude * 1000);
+        double maxX = nowLongitude + (mForLongitude * 1000);
+        double minX = nowLongitude - (mForLongitude * 1000);
+
+        CoordinateRangeRequest request = CoordinateRangeRequest.builder()
+                .startLatitude(minY)
+                .endLatitude(maxY)
+                .startLongitude(minX)
+                .endLongitude(maxX)
+                .level(2)
+                .build();
+
+        List<FoodDto> food = areaMapper.aptFood(request);
+        List<FoodDto> foodList = new ArrayList<>();
+
+        //정확한 거리 측정
+        for(FoodDto f : food) {
+            double distance = AreaService.getDistance(nowLatitude, nowLongitude, f.getLatitude(), f.getLongitude());
+            if(distance < 1000) {
+                f.setDistance((int)distance);
+                foodList.add(f);
+            }
+        }
+
+        foodList.sort((Comparator.comparingInt(FoodDto::getDistance)));
+        return foodList;
     }
 }

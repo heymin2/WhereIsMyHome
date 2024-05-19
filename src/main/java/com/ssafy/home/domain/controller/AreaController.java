@@ -49,4 +49,9 @@ public class AreaController {
     public ResponseEntity<?> aptCafe(@PathVariable int aptId){
         return new ResponseEntity<>(areaService.aptCafe(aptId), HttpStatus.OK);
     }
+
+    @GetMapping("apt/food/{aptId}")
+    public ResponseEntity<?> aptFood(@PathVariable int aptId){
+        return new ResponseEntity<>(areaService.aptFood(aptId), HttpStatus.OK);
+    }
 }
