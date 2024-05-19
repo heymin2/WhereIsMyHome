@@ -1,12 +1,12 @@
 package com.ssafy.home.domain.request;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
+@ToString
 public class CoordinateRangeRequest {
 
     private double startLongitude;

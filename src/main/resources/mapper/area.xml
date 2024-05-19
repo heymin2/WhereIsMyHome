@@ -104,4 +104,18 @@
         WHERE houseinfo.apt_id = #{aptId}
         ORDER BY deal_year desc, deal_month desc, deal_day desc
     </select>
+
+    <select id="aptCoord" parameterType="int" resultType="HouseCoordDto">
+        select longitude, latitude
+        from houseinfo
+        where apt_id = #{aptId}
+    </select>
+
+    <select id="aptCafe" parameterType="CoordinateRangeRequest" resultType="CafeDto">
+        select store_id as storeId, name, jibun, longitude, latitude
+        from storeinfo
+        WHERE longitude between #{startLongitude} and #{endLongitude}
+        AND latitude BETWEEN #{startLatitude} AND #{endLatitude}
+        AND category = #{level}
+    </select>
 </mapper>

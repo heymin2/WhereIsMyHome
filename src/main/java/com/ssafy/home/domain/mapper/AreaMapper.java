@@ -1,9 +1,7 @@
 package com.ssafy.home.domain.mapper;
 
-import com.ssafy.home.domain.dto.AreaInfoDto;
-import com.ssafy.home.domain.dto.HouseDealDto;
-import com.ssafy.home.domain.dto.HouseDto;
-import com.ssafy.home.domain.dto.HouseInfoDto;
+import com.ssafy.home.domain.dto.*;
+import com.ssafy.home.domain.request.CoordinateRangeRequest;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -21,4 +19,6 @@ public interface AreaMapper {
     List<HouseInfoDto> findArea(@Param("sido") String sido, @Param("gugun") String gugun, @Param("dong") String dong);
     HouseDto aptInfo(@Param("apt_id") int aptId, @Param("zzim") boolean zzim);
     List<HouseDealDto> aptDeal(int aptId);
+    HouseCoordDto aptCoord(int aptId);
+    List<CafeDto> aptCafe(CoordinateRangeRequest request);
 }
