@@ -16,11 +16,13 @@
         DELETE from zzim where apt_id = #{apt_id} and member_id = #{member_id}
     </delete>
 
-    <select id="search" parameterType="int" resultType="ZzimDto">
-        SELECT zzim_id as zzimId, member_id as memberId, apt_id as aptId, created_at as createdAt
+    <select id="search" parameterType="int" resultType="ZzimInfoDto">
+        SELECT zzim_id as zzimId, sido, gugun, dong, jibun, apartmentName, created_at as createdAt
         FROM zzim
+        JOIN houseinfo ON zzim.apt_id = houseinfo.apt_id
+        JOIN area ON houseinfo.area_id = area.area_id
         WHERE member_id = #{member_id}
-        ORDER BY created_at
+        ORDER BY created_at desc
     </select>
 
     <select id="aptCnt" parameterType="int" resultType="int">
