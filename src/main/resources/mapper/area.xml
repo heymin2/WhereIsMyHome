@@ -126,4 +126,11 @@
           AND latitude BETWEEN #{startLatitude} AND #{endLatitude}
           AND category = #{level}
     </select>
+
+    <select id="aptBus" parameterType="CoordinateRangeRequest" resultType="BusInfoDto">
+        select bus_id as busId, name, longitude, latitude
+        from bus
+        WHERE longitude between #{startLongitude} and #{endLongitude}
+          AND latitude BETWEEN #{startLatitude} AND #{endLatitude}
+    </select>
 </mapper>

@@ -45,13 +45,18 @@ public class AreaController {
         return new ResponseEntity<>(areaService.aptDeal(aptId), HttpStatus.OK);
     }
 
-    @GetMapping("apt/cafe/{aptId}")
+    @GetMapping("/apt/cafe/{aptId}")
     public ResponseEntity<?> aptCafe(@PathVariable int aptId){
         return new ResponseEntity<>(areaService.aptCafe(aptId), HttpStatus.OK);
     }
 
-    @GetMapping("apt/food/{aptId}")
+    @GetMapping("/apt/food/{aptId}")
     public ResponseEntity<?> aptFood(@PathVariable int aptId){
         return new ResponseEntity<>(areaService.aptFood(aptId), HttpStatus.OK);
+    }
+
+    @GetMapping("/apt/bus/{aptId}")
+    public ResponseEntity<?> aptBus(@PathVariable int aptId){
+        return new ResponseEntity<>(areaService.aptBus(aptId), HttpStatus.OK);
     }
 }

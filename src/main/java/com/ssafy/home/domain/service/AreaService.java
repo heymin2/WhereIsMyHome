@@ -6,7 +6,6 @@ import com.ssafy.home.domain.mapper.ZzimMapper;
 import com.ssafy.home.domain.request.CoordinateRangeRequest;
 import org.springframework.stereotype.Service;
 
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -117,7 +116,6 @@ public class AreaService {
         System.out.println(cafe);
         List<CafeDto> cafeList = new ArrayList<>();
 
-        //정확한 거리 측정
         for(CafeDto c : cafe) {
             double distance = AreaService.getDistance(nowLatitude, nowLongitude, c.getLatitude(), c.getLongitude());
             if(distance < 1000) {
@@ -128,6 +126,42 @@ public class AreaService {
 
         cafeList.sort((Comparator.comparingInt(CafeDto::getDistance)));
         return cafeList;
+    }
+
+    public List<BusInfoDto> aptBus(int aptId) {
+        HouseCoordDto coord = areaMapper.aptCoord(aptId);
+
+        double nowLatitude = coord.getLatitude();
+        double nowLongitude = coord.getLongitude();
+
+        double mForLatitude =(1 /(EARTH_RADIUS* 1 *(Math.PI/ 180)))/ 1000;
+        double mForLongitude =(1 /(EARTH_RADIUS* 1 *(Math.PI/ 180)* Math.cos(Math.toRadians(nowLatitude))))/ 1000;
+
+        double maxY = nowLatitude +  (mForLatitude * 1000);
+        double minY = nowLatitude -  (mForLatitude * 1000);
+        double maxX = nowLongitude + (mForLongitude * 1000);
+        double minX = nowLongitude - (mForLongitude * 1000);
+
+        CoordinateRangeRequest request = CoordinateRangeRequest.builder()
+                .startLatitude(minY)
+                .endLatitude(maxY)
+                .startLongitude(minX)
+                .endLongitude(maxX)
+                .build();
+
+        List<BusInfoDto> bus = areaMapper.aptBus(request);
+        List<BusInfoDto> busList = new ArrayList<>();
+
+        for(BusInfoDto b : bus) {
+            double distance = AreaService.getDistance(nowLatitude, nowLongitude, b.getLatitude(), b.getLongitude());
+            if(distance < 1000) {
+                b.setDistance((int)distance);
+                busList.add(b);
+            }
+        }
+
+        busList.sort((Comparator.comparingInt(BusInfoDto::getDistance)));
+        return busList;
     }
 
     public List<FoodDto> aptFood(int aptId) {
