@@ -10,7 +10,9 @@ import lombok.NoArgsConstructor;
 public class AddressInfoDto {
 
     private int addressId;
-    private String address;
+    private String sido;
+    private String gugun;
+    private String dong;
     private int level;
     private double longitude;
     private double latitude;
