@@ -38,11 +38,12 @@
     </select>
 
     <select id="dongList" parameterType="CoordinateRangeRequest" resultType="AddressInfoDto">
-        SELECT address_id as addressId, address,  longitude, latitude, amount, address_level as level
+        SELECT address_id as addressId, sido, gugun, dong,  longitude, latitude, amount, address_level as level
         FROM addressinfo
+        JOIN area ON addressinfo.area_id = area.area_id
         WHERE longitude between #{startLongitude} and #{endLongitude}
-            AND latitude BETWEEN #{startLatitude} AND #{endLatitude}
-            AND address_level = #{level}
+        AND latitude BETWEEN #{startLatitude} AND #{endLatitude}
+        AND address_level = #{level}
     </select>
 
     <select id="busList" parameterType="CoordinateRangeRequest" resultType="BusDto">
