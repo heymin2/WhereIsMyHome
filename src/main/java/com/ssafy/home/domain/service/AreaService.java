@@ -2,8 +2,10 @@ package com.ssafy.home.domain.service;
 
 import com.ssafy.home.domain.dto.*;
 import com.ssafy.home.domain.mapper.AreaMapper;
+import com.ssafy.home.domain.mapper.HouseMapper;
 import com.ssafy.home.domain.mapper.ZzimMapper;
 import com.ssafy.home.domain.request.CoordinateRangeRequest;
+import com.ssafy.home.domain.request.FilterRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -15,11 +17,13 @@ public class AreaService {
 
     private final AreaMapper areaMapper;
     private final ZzimMapper zzimMapper;
+    private final HouseMapper houseMapper;
     private static final int EARTH_RADIUS = 6371;
 
-    public AreaService(AreaMapper areaMapper, ZzimMapper zzimMapper) {
+    public AreaService(AreaMapper areaMapper, ZzimMapper zzimMapper, HouseMapper houseMapper) {
         this.areaMapper = areaMapper;
         this.zzimMapper = zzimMapper;
+        this.houseMapper = houseMapper;
     }
 
     public List<AreaInfoDto> findSido() {
@@ -200,5 +204,31 @@ public class AreaService {
 
         foodList.sort((Comparator.comparingInt(FoodDto::getDistance)));
         return foodList;
+    }
+
+    public List<HouseInfoDto> price(FilterRequest request) {
+        CoordinateRangeRequest coord = CoordinateRangeRequest.builder()
+                .startLatitude(request.getStartLatitude())
+                .endLatitude(request.getEndLatitude())
+                .startLongitude(request.getStartLongitude())
+                .endLongitude(request.getEndLongitude())
+                .build();
+
+        List<HouseInfoDto> houseList = houseMapper.houseList(coord);
+        List<HouseInfoDto> house = new ArrayList<>();
+
+        int min = request.getMin();
+        int max = request.getMax();
+
+        if(request.getMax() == 0) {
+            max = Integer.MAX_VALUE;
+        }
+
+        for(HouseInfoDto h : houseList) {
+            if(h.getDealAmount() >= min && h.getDealAmount() <= max){
+                house.add(h);
+            }
+        }
+        return house;
     }
 }

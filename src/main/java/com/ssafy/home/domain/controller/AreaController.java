@@ -1,5 +1,6 @@
 package com.ssafy.home.domain.controller;
 
+import com.ssafy.home.domain.request.FilterRequest;
 import com.ssafy.home.domain.service.AreaService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,5 +59,10 @@ public class AreaController {
     @GetMapping("/apt/bus/{aptId}")
     public ResponseEntity<?> aptBus(@PathVariable int aptId){
         return new ResponseEntity<>(areaService.aptBus(aptId), HttpStatus.OK);
+    }
+
+    @PostMapping("/price")
+    public ResponseEntity<?> price(@RequestBody FilterRequest request){
+        return new ResponseEntity<>(areaService.price(request), HttpStatus.OK);
     }
 }
