@@ -10,6 +10,7 @@
             SELECT b.board_id as boardId, m.id, m.name, b.title, b.created_at as createdAt, b.updated_at as updatedAt
             FROM board b
             INNER JOIN member m ON m.member_id = b.member_id
+            ORDER BY createdAt desc
             LIMIT ${offset} , ${pageSize}
         </select>
 

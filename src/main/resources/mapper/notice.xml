@@ -9,8 +9,9 @@
     <select id="list" parameterType="map" resultType="noticeInfoDto">
         SELECT n.notice_id as noticeId, m.id, m.name, n.title, n.created_at as createdAt, n.updated_at as updatedAt
         FROM NOTICE n
-                 INNER JOIN member m ON m.member_id = n.member_id
-            LIMIT ${offset} , ${pageSize}
+        INNER JOIN member m ON m.member_id = n.member_id
+        ORDER BY createdAt desc
+        LIMIT ${offset} , ${pageSize}
     </select>
 
     <select id="getListNoticeCount" parameterType="noticeDto" resultType="int">
