@@ -65,4 +65,9 @@ public class AreaController {
     public ResponseEntity<?> price(@RequestBody FilterRequest request){
         return new ResponseEntity<>(areaService.price(request), HttpStatus.OK);
     }
+
+    @PostMapping("/size")
+    public ResponseEntity<?> size(@RequestBody FilterRequest request){
+        return new ResponseEntity<>(areaService.size(request), HttpStatus.OK);
+    }
 }

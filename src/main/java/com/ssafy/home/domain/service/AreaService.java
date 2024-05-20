@@ -231,4 +231,30 @@ public class AreaService {
         }
         return house;
     }
+
+    public List<HouseInfoDto> size(FilterRequest request) {
+        CoordinateRangeRequest coord = CoordinateRangeRequest.builder()
+                .startLatitude(request.getStartLatitude())
+                .endLatitude(request.getEndLatitude())
+                .startLongitude(request.getStartLongitude())
+                .endLongitude(request.getEndLongitude())
+                .build();
+
+        List<HouseInfoDto> houseList = houseMapper.houseList(coord);
+        List<HouseInfoDto> house = new ArrayList<>();
+
+        int min = request.getMin();
+        int max = request.getMax();
+
+        if(request.getMax() == 0) {
+            max = Integer.MAX_VALUE;
+        }
+
+        for(HouseInfoDto h : houseList) {
+            if(h.getSize() >= min && h.getSize() <= max){
+                house.add(h);
+            }
+        }
+        return house;
+    }
 }
