@@ -13,6 +13,7 @@ public class LoginDto {
     private String name;
     private String id;
     private String email;
+    private String phone;
     @Setter
     @JsonProperty("isAdmin")
     private boolean isAdmin;
@@ -21,6 +22,7 @@ public class LoginDto {
         this.memberId = member.getMemberId();
         this.name = member.getName();
         this.id = member.getId();
+        this.phone = member.getPhone();
         this.isAdmin = member.isAdmin();
         this.email = member.getEmail();
     }
