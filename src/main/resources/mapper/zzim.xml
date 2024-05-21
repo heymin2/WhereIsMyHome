@@ -17,7 +17,7 @@
     </delete>
 
     <select id="search" parameterType="int" resultType="ZzimInfoDto">
-        SELECT zzim_id as zzimId, sido, gugun, dong, jibun, apartmentName, created_at as createdAt
+        SELECT zzim_id as zzimId, zzim.apt_id as aptId, sido, gugun, dong, jibun, apartmentName, created_at as createdAt, longitude, latitude
         FROM zzim
         JOIN houseinfo ON zzim.apt_id = houseinfo.apt_id
         JOIN area ON houseinfo.area_id = area.area_id

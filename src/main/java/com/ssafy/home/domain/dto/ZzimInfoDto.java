@@ -12,10 +12,13 @@ import java.time.LocalDateTime;
 public class ZzimInfoDto {
 
     private int zzimId;
+    private int aptId;
     private String sido;
     private String gugun;
     private String dong;
     private String jibun;
     private String apartmentName;
     private LocalDateTime createdAt;
+    private double longitude;
+    private double latitude;
 }
