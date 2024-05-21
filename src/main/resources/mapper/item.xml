@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.home.domain.mapper.ItemMapper">
+    <insert id="insertItem" parameterType="itemDto">
+        insert into item(type, longitude, latitude, address, title, description, sale_price,
+                         deposit, monthly_rent, rooms, bathrooms, size, member_id,
+                         created_at, updated_at)
+        values (#{type}, #{longitude}, #{latitude}, #{address}, #{title}, #{description}, #{salePrice},
+                #{deposit}, #{monthlyRent}, #{rooms}, #{bathrooms}, #{size}, #{memberId},
+                now(), now())
+
+    </insert>
+
+    <insert id="insertImg" parameterType="map">
+        INSERT INTO item_img (item_id, url)
+        VALUES (#{item_id}, #{url})
+    </insert>
+</mapper>
