@@ -4,6 +4,7 @@ package com.ssafy.home.domain.dto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
 @AllArgsConstructor
@@ -12,8 +13,6 @@ public class HouseInfoDto {
 
     private int aptId;
     private int buildYear;
-    private String sigunguCode;
-    private String eubmyundongCode;
     private String areaId;
     private String sido;
     private String gugun;
@@ -24,4 +23,7 @@ public class HouseInfoDto {
     private double latitude;
     private int dealAmount;
     private double size;
+
+    @Setter
+    private boolean zzim;
 }

@@ -2,7 +2,9 @@ package com.ssafy.home.domain.controller;
 
 import com.ssafy.home.domain.request.CoordinateRangeRequest;
 import com.ssafy.home.domain.service.HouseService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,8 +19,9 @@ public class HouseController {
     private HouseService houseService;
 
     @PostMapping("")
-    public ResponseEntity<?> houseList(@RequestBody CoordinateRangeRequest request) {
-        return ResponseEntity.accepted().body(houseService.houseList(request));
+    public ResponseEntity<?> houseList(@RequestBody CoordinateRangeRequest request, HttpSession session) {
+        Object memberId = session.getAttribute("session");
+        return ResponseEntity.accepted().body(houseService.houseList(request, memberId));
     }
 
     @PostMapping("/area")
