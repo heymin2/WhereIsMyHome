@@ -24,14 +24,12 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest request, HttpSession session){
-        MemberDto member = authService.login(request.getId(), request.getPw());
+        LoginDto member = authService.login(request.getId(), request.getPw());
 
         if(member != null) {
             session.setAttribute("session", member.getMemberId());
 
-            LoginDto loginDto = new LoginDto();
-            loginDto.update(member);
-            return ResponseEntity.ok().body(loginDto);
+            return ResponseEntity.ok().body(member);
         }
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인 실패: 사용자 정보가 올바르지 않습니다.");
     }
@@ -57,11 +55,8 @@ public class AuthController {
     public ResponseEntity<?> info(HttpSession httpSession) {
         try{
             int memberId = (int) httpSession.getAttribute("session");
-            MemberDto member = authService.info(memberId);
-
-            LoginDto loginDto = new LoginDto();
-            loginDto.update(member);
-            return ResponseEntity.ok().body(loginDto);
+            LoginDto member = authService.info(memberId);
+            return ResponseEntity.ok().body(member);
         }
         catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("세션 만료");

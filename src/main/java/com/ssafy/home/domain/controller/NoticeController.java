@@ -30,7 +30,7 @@ public class NoticeController {
         try{
             int memberId = (int) session.getAttribute("session");
 
-            MemberDto memberDto = authService.info(memberId);
+            LoginDto memberDto = authService.info(memberId);
 
             if(memberDto.isAdmin()) {
                 noticeDto.setMemberId(memberId);

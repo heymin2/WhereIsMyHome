@@ -1,6 +1,8 @@
 package com.ssafy.home.domain.service;
 
+import com.ssafy.home.domain.dto.LoginDto;
 import com.ssafy.home.domain.dto.MemberDto;
+import com.ssafy.home.domain.mapper.AuthMapper;
 import com.ssafy.home.domain.mapper.MemberMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -9,9 +11,11 @@ import org.springframework.transaction.annotation.Transactional;
 public class MemberService {
 
     private final MemberMapper memberMapper;
+    private final AuthMapper authMapper;
 
-    public MemberService(MemberMapper memberMapper) {
+    public MemberService(MemberMapper memberMapper, AuthMapper authMapper) {
         this.memberMapper = memberMapper;
+        this.authMapper = authMapper;
     }
 
     @Transactional
@@ -31,7 +35,11 @@ public class MemberService {
     }
 
     @Transactional
-    public int updateMember(MemberDto memberDto){
-        return memberMapper.updateMember(memberDto);
+    public LoginDto updateMember(MemberDto memberDto){
+        System.out.println(memberDto);
+        if(memberMapper.updateMember(memberDto) == 1){
+            return authMapper.info(memberDto.getMemberId());
+        }
+        return null;
     }
 }

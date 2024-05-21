@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.ssafy.home.domain.mapper.AuthMapper">
-    <select id="login" parameterType="map" resultType="memberDto">
-        select member_id as memberId, name, id, pw, phone, email, is_admin as admin, created_at as createdAt, updated_at as updatedAt
+    <select id="login" parameterType="map" resultType="loginDto">
+        select member_id as memberId, name, id, phone, email, is_admin as admin
         from member
         where id = #{id} and pw = #{pw}
     </select>
@@ -16,8 +16,8 @@
         select email from member where id = #{id} and name = #{name}
     </select>
 
-    <select id="info" parameterType="int" resultType="memberDto">
-        select member_id as memberId, name, id, pw, phone, email, is_admin as admin, created_at as createdAt, updated_at as updatedAt
+    <select id="info" parameterType="int" resultType="loginDto">
+        select member_id as memberId, name, id, phone, email, is_admin as admin
         from member
         where member_id = #{member_id}
     </select>

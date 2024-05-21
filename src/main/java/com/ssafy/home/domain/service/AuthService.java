@@ -1,5 +1,6 @@
 package com.ssafy.home.domain.service;
 
+import com.ssafy.home.domain.dto.LoginDto;
 import com.ssafy.home.domain.dto.MemberDto;
 import com.ssafy.home.domain.mapper.AuthMapper;
 import org.springframework.stereotype.Service;
@@ -13,11 +14,11 @@ public class AuthService {
         this.authMapper = authMapper;
     }
 
-    public MemberDto login(String id, String pass){
+    public LoginDto login(String id, String pass){
         return authMapper.login(id, pass);
     }
 
-    public MemberDto info(int memberId) {
+    public LoginDto info(int memberId) {
         return authMapper.info(memberId);
     };
 }

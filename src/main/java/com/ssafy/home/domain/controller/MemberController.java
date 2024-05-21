@@ -1,5 +1,6 @@
 package com.ssafy.home.domain.controller;
 
+import com.ssafy.home.domain.dto.LoginDto;
 import com.ssafy.home.domain.dto.MemberDto;
 import com.ssafy.home.domain.service.MemberService;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -48,20 +49,18 @@ public class MemberController {
     public ResponseEntity<?> update(
             @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "수정할 회원정보", required = true, content = @Content(schema = @Schema(implementation = MemberDto.class)))
             @RequestBody MemberDto memberDto, HttpSession session) {
-        try{
-            int memberId = (int) session.getAttribute("session");
-            memberDto.setMemberId(memberId);
+        Object memberId = session.getAttribute("session");
 
-            int cnt = memberService.updateMember(memberDto);
-
-            if (cnt == 1) {
-                return ResponseEntity.accepted().body("수정 성공");
-            } else {
+        if(memberId == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인 필요");
+        }
+        else {
+            memberDto.setMemberId((int) memberId);
+            LoginDto member =  memberService.updateMember(memberDto);
+            if(member == null) {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("수정 실패");
             }
-        }
-        catch (Exception e){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("수정 실패");
+            return ResponseEntity.accepted().body(member);
         }
     }
 
