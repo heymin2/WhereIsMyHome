@@ -5,15 +5,15 @@
     <select id="login" parameterType="map" resultType="loginDto">
         select member_id as memberId, name, id, phone, email, is_admin as admin
         from member
-        where id = #{id} and pw = #{pw}
+        where BINARY(id) = #{id} and BINARY(pw) = #{pw}
     </select>
 
     <select id="findByPass" parameterType="map" resultType="String">
-        select pw from member where id = #{id} and name = #{name}
+        select pw from member where BINARY(id) = #{id} and name = #{name}
     </select>
 
     <select id="findByEmail" parameterType="map" resultType="String">
-        select email from member where id = #{id} and name = #{name}
+        select email from member where BINARY(id) = #{id} and name = #{name}
     </select>
 
     <select id="info" parameterType="int" resultType="loginDto">

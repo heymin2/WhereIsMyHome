@@ -8,22 +8,16 @@
 		values (#{name}, #{id}, #{pw}, #{phone}, #{email}, #{admin}, now(), now())
 	</insert>
 
-	<select id="login" parameterType="memberDto" resultType="memberDto">
-		select member_id as memberId, name, id, pw, phone, email, is_admin as admin, created_at as createdAt, updated_at as updatedAt
-		from member
-		where id = #{id} and pw = #{pw}
-	</select>
-
 	<select id="getMemberById" parameterType="String" resultType="int">
-		SELECT count(*) FROM member WHERE id = #{id}
+		SELECT count(*) FROM member WHERE BINARY(id) = #{id}
 	</select>
 
 	<select id="getMemberByEmail" parameterType="String" resultType="int">
-		SELECT count(*) FROM member WHERE email = #{email}
+		SELECT count(*) FROM member WHERE BINARY(email) = #{email}
 	</select>
 
 	<select id="findByPass" parameterType="String" resultType="String">
-		select pw from member where id = #{id} and name = #{name}
+		select pw from member where BINARY(id) = #{id} and name = #{name}
 	</select>
 
 	<update id="updateMember" parameterType="com.ssafy.home.domain.dto.MemberDto">
