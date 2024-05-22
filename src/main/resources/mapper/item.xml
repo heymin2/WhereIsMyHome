@@ -31,22 +31,22 @@
 
     <select id="search" parameterType="CoordinateRangeRequest" resultType="itemCoordDto">
         SELECT item_id as itemId, type, longitude, latitude,
-               sale_price, deposit, monthly_rent, sold, address, size
+               sale_price as salePrice, deposit, monthly_rent as monthlyRent, sold, address, size
         FROM item
         WHERE longitude between #{startLongitude} and #{endLongitude}
           AND latitude BETWEEN #{startLatitude} AND #{endLatitude}
     </select>
 
     <select id="searchDetail" parameterType="int" resultType="itemDto">
-        SELECT item_id as itemId, type, longitude, latitude, address, title, description, sale_price,
-               created_at as createdAt, updated_at as updatedAt, deposit, monthly_rent, rooms, bathrooms, size, sold
+        SELECT item_id as itemId, type, longitude, latitude, address, title, description, sale_price as salePrice,
+               created_at as createdAt, updated_at as updatedAt, deposit, monthly_rent as monthlyRent, rooms, bathrooms, size, sold
         FROM item
         WHERE item_id = #{itemId}
     </select>
 
     <select id="myItem" parameterType="int" resultType="itemCoordDto">
         SELECT item_id as itemId, type, longitude, latitude,
-               sale_price, deposit, monthly_rent, sold, address, size
+               sale_price as salePrice, deposit, monthly_rent as monthlyRent, sold, address, size
         FROM item
         WHERE member_id = #{memberId}
     </select>
