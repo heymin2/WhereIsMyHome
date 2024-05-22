@@ -8,8 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.beans.factory.annotation.Value;
 
-import java.io.UnsupportedEncodingException;
-import java.net.MalformedURLException;
 import java.net.URLConnection;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -126,5 +124,20 @@ public class ItemService {
         array.add(lon);
         array.add(lat);
         return array;
+    }
+
+    @Transactional
+    public int deleteItem(int itemId, int memberId) {
+        System.out.println(itemId + " " + memberId);
+        return itemMapper.deleteItem(itemId, memberId);
+    }
+
+    @Transactional
+    public void sold(int itemId, int memberId) {
+        ItemDto item = itemMapper.search(itemId, memberId);
+
+        if(item != null){
+            itemMapper.sold(item.getItemId(), item.getMemberId(), !item.isSold());
+        }
     }
 }

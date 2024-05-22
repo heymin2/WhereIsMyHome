@@ -1,9 +1,6 @@
 package com.ssafy.home.domain.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
@@ -12,6 +9,7 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 public class ItemDto {
 
     private int itemId;
@@ -34,5 +32,7 @@ public class ItemDto {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private List<MultipartFile> img;
+
+    @Setter
     private boolean sold;
 }

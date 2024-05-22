@@ -15,4 +15,17 @@
         INSERT INTO item_img (item_id, url)
         VALUES (#{item_id}, #{url})
     </insert>
+
+    <delete id="deleteItem" parameterType="map">
+        DELETE from item where item_id = #{item_id} and member_id = #{member_id}
+    </delete>
+
+    <select id="search" parameterType="map" resultType="itemDto">
+        select item_id as itemId, member_id as memberId, sold from item where item_id = #{item_id} and member_id = #{member_id}
+    </select>
+
+    <select id="sold" parameterType="map">
+        UPDATE item SET sold = #{sold}
+        where item_id = #{item_id} and member_id = #{member_id}
+    </select>
 </mapper>
