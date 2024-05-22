@@ -4,10 +4,10 @@
     <insert id="insertItem" parameterType="itemDto">
         insert into item(type, longitude, latitude, address, title, description, sale_price,
                          deposit, monthly_rent, rooms, bathrooms, size, member_id,
-                         created_at, updated_at)
+                         created_at, updated_at, sold)
         values (#{type}, #{longitude}, #{latitude}, #{address}, #{title}, #{description}, #{salePrice},
                 #{deposit}, #{monthlyRent}, #{rooms}, #{bathrooms}, #{size}, #{memberId},
-                now(), now())
+                now(), now(), false)
 
     </insert>
 

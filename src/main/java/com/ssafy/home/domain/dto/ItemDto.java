@@ -34,4 +34,5 @@ public class ItemDto {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private List<MultipartFile> img;
+    private boolean sold;
 }
