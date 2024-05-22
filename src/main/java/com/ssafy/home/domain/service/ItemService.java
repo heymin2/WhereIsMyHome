@@ -147,4 +147,8 @@ public class ItemService {
     public List<ItemCoordDto> search(CoordinateRangeRequest request) {
         return itemMapper.search(request);
     }
+
+    public List<ItemDto> searchDetail(int itemId) {
+        return itemMapper.searchDetail(itemId);
+    }
 }

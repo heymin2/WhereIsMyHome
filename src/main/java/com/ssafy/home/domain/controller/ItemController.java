@@ -60,7 +60,12 @@ public class ItemController {
     }
 
     @PostMapping("/place")
-    public ResponseEntity<?> sold(@RequestBody CoordinateRangeRequest request) {
+    public ResponseEntity<?> search(@RequestBody CoordinateRangeRequest request) {
         return ResponseEntity.accepted().body(itemService.search(request));
+    }
+
+    @GetMapping("/place/{itemId}")
+    public ResponseEntity<?> searchDetail(@PathVariable int itemId) {
+        return ResponseEntity.accepted().body(itemService.searchDetail(itemId));
     }
 }
