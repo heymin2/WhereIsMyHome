@@ -64,4 +64,11 @@
         FROM item
         WHERE member_id = #{memberId}
     </select>
+
+    <update id="update" parameterType="itemDto">
+        UPDATE item SET type = #{type}, title = #{title}, description = #{description},
+        sale_price = #{salePrice}, deposit = #{deposit}, monthly_rent = #{monthlyRent},
+        rooms = #{rooms}, bathrooms = #{bathrooms}, size = #{size}, updated_at = now()
+        where item_id = #{itemId} and member_id = #{memberId}
+    </update>
 </mapper>

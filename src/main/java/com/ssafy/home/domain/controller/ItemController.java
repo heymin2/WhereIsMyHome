@@ -1,5 +1,6 @@
 package com.ssafy.home.domain.controller;
 
+import com.ssafy.home.domain.dto.BoardDto;
 import com.ssafy.home.domain.dto.ItemDto;
 import com.ssafy.home.domain.request.CoordinateRangeRequest;
 import com.ssafy.home.domain.service.ItemService;
@@ -84,5 +85,22 @@ public class ItemController {
         Object memberId = session.getAttribute("session");
 
         return ResponseEntity.accepted().body(itemService.searchDetail(itemId, memberId));
+    }
+
+    @PutMapping("")
+    public ResponseEntity<?> update(@RequestBody ItemDto itemDto, HttpSession session) {
+        Object memberId = session.getAttribute("session");
+
+        if(memberId == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("세션 만료");
+        }
+        else {
+            itemDto.setMemberId((int)memberId);
+
+            if(itemService.update(itemDto) == 1) {
+                return ResponseEntity.accepted().body(itemService.searchDetail(itemDto.getItemId(), memberId));
+            }
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("수정 실패");
+        }
     }
 }

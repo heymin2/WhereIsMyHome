@@ -21,4 +21,5 @@ public interface ItemMapper {
     ItemDto searchDetail(int itemId);
     int id();
     List<String> getImg(int itemId);
+    int update(ItemDto itemDto);
 }

@@ -78,7 +78,6 @@ public class ItemService {
         // 저장할 파일의 이름을 설정합니다.
         String originalFileName = photo.getOriginalFilename();
         String safeFileName = originalFileName.replaceAll(" ", "_");
-//        String encodedFileName = URLEncoder.encode(safeFileName, StandardCharsets.UTF_8.toString());
         String fileName = System.currentTimeMillis() + "_" + safeFileName;
 
         // 파일을 저장할 전체 경로를 생성합니다.
@@ -188,5 +187,10 @@ public class ItemService {
             item.setZzim(zzim);
         }
         return item;
+    }
+
+    @Transactional
+    public int update(ItemDto itemDto) {
+        return itemMapper.update(itemDto);
     }
 }
