@@ -60,8 +60,10 @@ public class ItemController {
     }
 
     @PostMapping("/place")
-    public ResponseEntity<?> search(@RequestBody CoordinateRangeRequest request) {
-        return ResponseEntity.accepted().body(itemService.search(request));
+    public ResponseEntity<?> search(@RequestBody CoordinateRangeRequest request, HttpSession session) {
+        Object memberId = session.getAttribute("session");
+
+        return ResponseEntity.accepted().body(itemService.search(request, memberId));
     }
 
     @GetMapping("")
@@ -76,7 +78,9 @@ public class ItemController {
     }
 
     @GetMapping("/place/{itemId}")
-    public ResponseEntity<?> searchDetail(@PathVariable int itemId) {
-        return ResponseEntity.accepted().body(itemService.searchDetail(itemId));
+    public ResponseEntity<?> searchDetail(@PathVariable int itemId, HttpSession session) {
+        Object memberId = session.getAttribute("session");
+
+        return ResponseEntity.accepted().body(itemService.searchDetail(itemId, memberId));
     }
 }

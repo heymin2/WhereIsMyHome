@@ -3,6 +3,7 @@ package com.ssafy.home.domain.dto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
 @AllArgsConstructor
@@ -19,4 +20,7 @@ public class ItemCoordDto {
     private int monthlyRent;
     private double size;
     private boolean sold;
+
+    @Setter
+    private boolean zzim;
 }

@@ -3,6 +3,7 @@ package com.ssafy.home.domain.service;
 import com.ssafy.home.domain.dto.ItemCoordDto;
 import com.ssafy.home.domain.dto.ItemDto;
 import com.ssafy.home.domain.mapper.ItemMapper;
+import com.ssafy.home.domain.mapper.ZzimMapper;
 import com.ssafy.home.domain.request.CoordinateRangeRequest;
 import org.json.simple.JSONArray;
 import org.springframework.stereotype.Service;
@@ -36,9 +37,11 @@ public class ItemService {
     String apiUrl;
 
     private final ItemMapper itemMapper;
+    private final ZzimMapper zzimMapper;
 
-    public ItemService(ItemMapper itemMapper) {
+    public ItemService(ItemMapper itemMapper, ZzimMapper zzimMapper) {
         this.itemMapper = itemMapper;
+        this.zzimMapper = zzimMapper;
     }
 
     @Transactional
@@ -144,15 +147,42 @@ public class ItemService {
         }
     }
 
-    public List<ItemCoordDto> search(CoordinateRangeRequest request) {
-        return itemMapper.search(request);
+    public List<ItemCoordDto> search(CoordinateRangeRequest request, Object memberId) {
+        List<ItemCoordDto> list = itemMapper.search(request);
+        List<ItemCoordDto> list2 = new ArrayList<>();
+
+        if(memberId != null) {
+            for(ItemCoordDto l : list) {
+                boolean zzim = false;
+                int cnt = zzimMapper.checkItem((int) memberId, l.getItemId());
+
+                if (cnt == 1) {
+                    zzim = true;
+                }
+                l.setZzim(zzim);
+                list2.add(l);
+            }
+            return list2;
+        }
+        return list;
     }
 
     public List<ItemCoordDto> myItem(int memberId) {
         return itemMapper.myItem(memberId);
     }
 
-    public List<ItemDto> searchDetail(int itemId) {
-        return itemMapper.searchDetail(itemId);
+    public ItemDto searchDetail(int itemId, Object memberId) {
+        ItemDto item = itemMapper.searchDetail(itemId);
+        boolean zzim = false;
+
+        if(memberId != null) {
+            int cnt = zzimMapper.checkItem((int) memberId, item.getItemId());
+
+            if (cnt == 1) {
+                zzim = true;
+            }
+            item.setZzim(zzim);
+        }
+        return item;
     }
 }

@@ -32,7 +32,8 @@ public class ItemDto {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private List<MultipartFile> img;
-
     @Setter
     private boolean sold;
+    @Setter
+    private boolean zzim;
 }
