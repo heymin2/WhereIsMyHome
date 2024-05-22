@@ -76,7 +76,10 @@ public class ItemService {
         Path uploadPath = Paths.get(uploadDir);
 
         // 저장할 파일의 이름을 설정합니다.
-        String fileName = System.currentTimeMillis() + "_" + photo.getOriginalFilename();
+        String originalFileName = photo.getOriginalFilename();
+        String safeFileName = originalFileName.replaceAll(" ", "_");
+//        String encodedFileName = URLEncoder.encode(safeFileName, StandardCharsets.UTF_8.toString());
+        String fileName = System.currentTimeMillis() + "_" + safeFileName;
 
         // 파일을 저장할 전체 경로를 생성합니다.
         Path filePath = uploadPath.resolve(fileName);
@@ -84,8 +87,8 @@ public class ItemService {
         // 파일을 로컬 디스크에 저장합니다.
         Files.copy(photo.getInputStream(), filePath);
 
-        // 저장된 파일의 경로를 반환합니다.
-        return filePath.toString();
+        // db 저장은 파일 이름만
+        return fileName;
     }
 
     private String getAddress(String address) {
@@ -172,6 +175,9 @@ public class ItemService {
     public ItemDto searchDetail(int itemId, Object memberId) {
         ItemDto item = itemMapper.searchDetail(itemId);
         boolean zzim = false;
+
+        List<String> img = itemMapper.getImg(itemId);
+        item.setImg(img);
 
         if(memberId != null) {
             int cnt = zzimMapper.checkItem((int) memberId, item.getItemId());

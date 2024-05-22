@@ -3,6 +3,7 @@ package com.ssafy.home.domain.dto;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @AllArgsConstructor
@@ -29,6 +30,8 @@ public class ItemDto {
     private int memberId;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+    @Setter
+    private List<String> img;
     @Setter
     private boolean sold;
     @Setter
