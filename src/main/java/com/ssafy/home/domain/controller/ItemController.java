@@ -64,6 +64,17 @@ public class ItemController {
         return ResponseEntity.accepted().body(itemService.search(request));
     }
 
+    @GetMapping("")
+    public ResponseEntity<?> myItem(HttpSession httpSession) {
+        Object memberId = httpSession.getAttribute("session");
+
+        if(memberId == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인 필요");
+        }
+
+        return ResponseEntity.accepted().body(itemService.myItem((int)memberId));
+    }
+
     @GetMapping("/place/{itemId}")
     public ResponseEntity<?> searchDetail(@PathVariable int itemId) {
         return ResponseEntity.accepted().body(itemService.searchDetail(itemId));

@@ -17,5 +17,6 @@ public interface ItemMapper {
     ItemDto soldSearch(@Param("item_id") int itemId, @Param("member_id") int memberId);
     void sold(@Param("item_id") int itemId, @Param("member_id") int memberId, @Param("sold") boolean sold);
     List<ItemCoordDto> search(CoordinateRangeRequest request);
+    List<ItemCoordDto> myItem(int itemId);
     List<ItemDto> searchDetail(int itemId);
 }

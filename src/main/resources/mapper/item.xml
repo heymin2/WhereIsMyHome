@@ -43,4 +43,11 @@
         FROM item
         WHERE item_id = #{itemId}
     </select>
+
+    <select id="myItem" parameterType="int" resultType="itemCoordDto">
+        SELECT item_id as itemId, type, longitude, latitude,
+               sale_price, deposit, monthly_rent, sold, address, size
+        FROM item
+        WHERE member_id = #{memberId}
+    </select>
 </mapper>

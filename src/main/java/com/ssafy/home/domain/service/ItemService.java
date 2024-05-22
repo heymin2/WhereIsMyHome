@@ -148,6 +148,10 @@ public class ItemService {
         return itemMapper.search(request);
     }
 
+    public List<ItemCoordDto> myItem(int memberId) {
+        return itemMapper.myItem(memberId);
+    }
+
     public List<ItemDto> searchDetail(int itemId) {
         return itemMapper.searchDetail(itemId);
     }
