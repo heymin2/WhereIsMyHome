@@ -20,12 +20,20 @@
         DELETE from item where item_id = #{item_id} and member_id = #{member_id}
     </delete>
 
-    <select id="search" parameterType="map" resultType="itemDto">
+    <select id="soldSearch" parameterType="map" resultType="itemDto">
         select item_id as itemId, member_id as memberId, sold from item where item_id = #{item_id} and member_id = #{member_id}
     </select>
 
     <select id="sold" parameterType="map">
-        UPDATE item SET sold = #{sold}
+        UPDATE item SET sold = #{sold}, updated_at = now()
         where item_id = #{item_id} and member_id = #{member_id}
+    </select>
+
+    <select id="search" parameterType="CoordinateRangeRequest" resultType="itemCoordDto">
+        SELECT item_id as itemId, type, longitude, latitude,
+               sale_price, deposit, monthly_rent, sold, address, size
+        FROM item
+        WHERE longitude between #{startLongitude} and #{endLongitude}
+          AND latitude BETWEEN #{startLatitude} AND #{endLatitude}
     </select>
 </mapper>

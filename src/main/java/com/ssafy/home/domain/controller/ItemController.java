@@ -1,6 +1,7 @@
 package com.ssafy.home.domain.controller;
 
 import com.ssafy.home.domain.dto.ItemDto;
+import com.ssafy.home.domain.request.CoordinateRangeRequest;
 import com.ssafy.home.domain.service.ItemService;
 import jakarta.servlet.http.HttpSession;
 import org.json.simple.parser.ParseException;
@@ -56,5 +57,10 @@ public class ItemController {
             itemService.sold(itemId, (int)memberId);
             return ResponseEntity.accepted().body("매물 판매 여부 변경");
         }
+    }
+
+    @PostMapping("/place")
+    public ResponseEntity<?> sold(@RequestBody CoordinateRangeRequest request) {
+        return ResponseEntity.accepted().body(itemService.search(request));
     }
 }

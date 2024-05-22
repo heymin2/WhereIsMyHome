@@ -1,7 +1,9 @@
 package com.ssafy.home.domain.service;
 
+import com.ssafy.home.domain.dto.ItemCoordDto;
 import com.ssafy.home.domain.dto.ItemDto;
 import com.ssafy.home.domain.mapper.ItemMapper;
+import com.ssafy.home.domain.request.CoordinateRangeRequest;
 import org.json.simple.JSONArray;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,6 +21,7 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -134,10 +137,14 @@ public class ItemService {
 
     @Transactional
     public void sold(int itemId, int memberId) {
-        ItemDto item = itemMapper.search(itemId, memberId);
+        ItemDto item = itemMapper.soldSearch(itemId, memberId);
 
         if(item != null){
             itemMapper.sold(item.getItemId(), item.getMemberId(), !item.isSold());
         }
+    }
+
+    public List<ItemCoordDto> search(CoordinateRangeRequest request) {
+        return itemMapper.search(request);
     }
 }
