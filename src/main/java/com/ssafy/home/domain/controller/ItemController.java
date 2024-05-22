@@ -5,6 +5,7 @@ import com.ssafy.home.domain.dto.LoginDto;
 import com.ssafy.home.domain.dto.NoticeDto;
 import com.ssafy.home.domain.service.ItemService;
 import jakarta.servlet.http.HttpSession;
+import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +22,7 @@ public class ItemController {
     private ItemService itemService;
 
     @PostMapping("")
-    public ResponseEntity<?> insert(@RequestBody ItemDto itemDto, HttpSession session) {
+    public ResponseEntity<?> insert(@RequestBody ItemDto itemDto, HttpSession session) throws ParseException {
         Object memberId = session.getAttribute("session");
 
         if(memberId == null) {

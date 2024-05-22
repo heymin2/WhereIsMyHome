@@ -2,10 +2,15 @@ package com.ssafy.home.domain.service;
 
 import com.ssafy.home.domain.dto.ItemDto;
 import com.ssafy.home.domain.mapper.ItemMapper;
+import org.json.simple.JSONArray;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.beans.factory.annotation.Value;
 
+import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
+import java.net.URLConnection;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -15,7 +20,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -24,6 +29,11 @@ import org.json.simple.parser.ParseException;
 @Service
 public class ItemService {
 
+    @Value("${kakao.api.key}")
+    String apiKey;
+    @Value("${kakao.url}")
+    String apiUrl;
+
     private final ItemMapper itemMapper;
 
     public ItemService(ItemMapper itemMapper) {
@@ -31,15 +41,15 @@ public class ItemService {
     }
 
     @Transactional
-    public void inserItem(ItemDto itemDto, int memberId) {
+    public void inserItem(ItemDto itemDto, int memberId) throws ParseException {
         itemDto.setMemberId(memberId);
+        String json = getAddress(itemDto.getAddress());
 
-        double[] xy = geo(itemDto.getAddress());
+        ArrayList<Float> xy = changeToJSON(json);
 
         if(xy != null){
-            System.out.println("A");
-            itemDto.setLongitude(xy[0]);
-            itemDto.setLatitude(xy[1]);
+            itemDto.setLongitude(xy.get(0));
+            itemDto.setLatitude(xy.get(1));
         }
         itemMapper.insertItem(itemDto);
 
@@ -76,47 +86,45 @@ public class ItemService {
         return filePath.toString();
     }
 
-    private double[] geo(String address) {
-        String apikey = "D324ED1E-B082-31EE-AF7E-355A0DC1DE8E";
-        String searchType = "parcel";
-        String searchAddr = address;
-        String epsg = "epsg:4326";
+    private String getAddress(String address) {
+        String jsonString = null;
 
-        StringBuilder sb = new StringBuilder("https://api.vworld.kr/req/address");
-        sb.append("?service=address");
-        sb.append("&request=getCoord");
-        sb.append("&format=json");
-        sb.append("&crs=" + epsg);
-        sb.append("&key=" + apikey);
-        sb.append("&type=" + searchType);
-        sb.append("&address=" + URLEncoder.encode(searchAddr, StandardCharsets.UTF_8));
-
-        try{
-            URL url = new URL(sb.toString());
-            BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream(), StandardCharsets.UTF_8));
-
-            JSONParser jspa = new JSONParser();
-            JSONObject jsob = (JSONObject) jspa.parse(reader);
-            JSONObject jsrs = (JSONObject) jsob.get("response");
-            JSONObject jsResult = (JSONObject) jsrs.get("result");
-
-            if(jsResult == null){
-                return null;
+        try {
+            address = URLEncoder.encode(address, "UTF-8");
+            String addr = apiUrl + "?query=" + address;
+            URL url = new URL(addr);
+            URLConnection conn = url.openConnection();
+            conn.setRequestProperty("Authorization", "KakaoAK " + apiKey);
+            BufferedReader json = null;
+            json = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
+            StringBuffer docJson = new StringBuffer();
+            String line;
+            while ((line = json.readLine()) != null) {
+                docJson.append(line);
             }
-            JSONObject jspoitn = (JSONObject) jsResult.get("point");
-
-            String xStr = (String) jspoitn.get("x");
-            String yStr = (String) jspoitn.get("y");
-
-            double x = Double.parseDouble(xStr);
-            double y = Double.parseDouble(yStr);
-
-            System.out.println(x + " " + y);
-
-            double[] value = {x, y};
-            return value;
-        } catch (IOException | ParseException e) {
+            jsonString = docJson.toString();
+            json.close();
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        return jsonString;
+    }
+
+    public ArrayList<Float> changeToJSON(String jsonString) throws ParseException {
+        ArrayList<Float> array = new ArrayList<>();
+        JSONParser parser = new JSONParser();
+        JSONObject document = (JSONObject)parser.parse(jsonString);
+        JSONArray jsonArray = (JSONArray) document.get("documents");
+
+        if(jsonArray.size() == 0){
+            return null;
+        }
+
+        JSONObject position = (JSONObject)jsonArray.get(0);
+        float lon = Float.parseFloat((String) position.get("x"));
+        float lat = Float.parseFloat((String) position.get("y"));
+        array.add(lon);
+        array.add(lat);
+        return array;
     }
 }
