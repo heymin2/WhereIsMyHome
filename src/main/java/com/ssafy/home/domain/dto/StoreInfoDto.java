@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
 public class StoreInfoDto {
 
     private int storeId;
-    private int category;
     private String name;
     private String jibun;
     private String tel;

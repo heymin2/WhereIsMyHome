@@ -112,19 +112,17 @@
     </select>
 
     <select id="aptCafe" parameterType="CoordinateRangeRequest" resultType="CafeDto">
-        select store_id as storeId, name, jibun, longitude, latitude
-        from storeinfo
+        select cafe_id as storeId, name, jibun, longitude, latitude
+        from cafe
         WHERE longitude between #{startLongitude} and #{endLongitude}
         AND latitude BETWEEN #{startLatitude} AND #{endLatitude}
-        AND category = #{level}
     </select>
 
     <select id="aptFood" parameterType="CoordinateRangeRequest" resultType="FoodDto">
-        select store_id as storeId, name, jibun, tel, longitude, latitude
-        from storeinfo
+        select food_id as storeId, name, jibun, tel, longitude, latitude
+        from food
         WHERE longitude between #{startLongitude} and #{endLongitude}
           AND latitude BETWEEN #{startLatitude} AND #{endLatitude}
-          AND category = #{level}
     </select>
 
     <select id="aptBus" parameterType="CoordinateRangeRequest" resultType="BusInfoDto">

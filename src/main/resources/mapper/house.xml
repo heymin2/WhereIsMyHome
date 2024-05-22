@@ -54,18 +54,16 @@
     </select>
 
     <select id="foodList" parameterType="CoordinateRangeRequest" resultType="StoreInfoDto">
-        SELECT store_id as storeId, category,  name, jibun, tel, longitude, latitude, area_id as areaId
-        FROM storeinfo
+        SELECT food_id as storeId,  name, jibun, tel, longitude, latitude, area_id as areaId
+        FROM food
         WHERE longitude between #{startLongitude} and #{endLongitude}
         AND latitude BETWEEN #{startLatitude} AND #{endLatitude}
-        AND category = 2
     </select>
 
     <select id="cafeList" parameterType="CoordinateRangeRequest" resultType="StoreInfoDto">
-        SELECT store_id as storeId, category,  name, jibun, tel, longitude, latitude, area_id as areaId
-        FROM storeinfo
+        SELECT cafe_id as storeId,  name, jibun, longitude, latitude, area_id as areaId
+        FROM cafe
         WHERE longitude between #{startLongitude} and #{endLongitude}
           AND latitude BETWEEN #{startLatitude} AND #{endLatitude}
-          AND category = 1
     </select>
 </mapper>
