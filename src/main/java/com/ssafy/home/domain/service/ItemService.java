@@ -45,7 +45,7 @@ public class ItemService {
     }
 
     @Transactional
-    public void inserItem(ItemDto itemDto, int memberId) throws ParseException {
+    public void insertItem(ItemDto itemDto, List<MultipartFile> img, int memberId) throws ParseException {
         itemDto.setMemberId(memberId);
         String json = getAddress(itemDto.getAddress());
 
@@ -55,27 +55,25 @@ public class ItemService {
             itemDto.setLongitude(xy.get(0));
             itemDto.setLatitude(xy.get(1));
         }
+
         itemMapper.insertItem(itemDto);
 
-        for (MultipartFile photo : itemDto.getImg()) {
+        for (MultipartFile photo : img) {
             try {
                 String url = savePhoto(photo);
-                itemMapper.insertImg(itemDto.getItemId(), url);
+                itemMapper.insertImg(itemMapper.id(), url);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
     }
 
-    private String savePhoto(MultipartFile photo) throws IOException {
+    public String savePhoto(MultipartFile photo) throws IOException {
         // 파일을 저장할 디렉토리 경로를 지정합니다.
-        String uploadDir = "/path/to/upload/directory"; // 실제 파일을 저장할 디렉토리 경로로 변경하세요.
+        String uploadDir = "/Users/nemin/Downloads/home/src/main/java/com/ssafy/home/common/img";
 
         // 디렉토리가 존재하지 않으면 생성합니다.
         Path uploadPath = Paths.get(uploadDir);
-        if (!Files.exists(uploadPath)) {
-            Files.createDirectories(uploadPath);
-        }
 
         // 저장할 파일의 이름을 설정합니다.
         String fileName = System.currentTimeMillis() + "_" + photo.getOriginalFilename();

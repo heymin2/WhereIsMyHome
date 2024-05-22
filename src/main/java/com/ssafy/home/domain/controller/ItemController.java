@@ -9,6 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/item")
@@ -18,14 +21,13 @@ public class ItemController {
     private ItemService itemService;
 
     @PostMapping("")
-    public ResponseEntity<?> insert(@RequestBody ItemDto itemDto, HttpSession session) throws ParseException {
+    public ResponseEntity<?> insert(@RequestPart("data") ItemDto itemDto, @RequestPart("file") List<MultipartFile> img, HttpSession session) throws ParseException {
         Object memberId = session.getAttribute("session");
 
-        if(memberId == null) {
+        if (memberId == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인 필요");
-        }
-        else {
-            itemService.inserItem(itemDto, (int)memberId);
+        } else {
+            itemService.insertItem(itemDto, img, (int) memberId);
             return ResponseEntity.accepted().body("매물 등록 성공");
         }
     }

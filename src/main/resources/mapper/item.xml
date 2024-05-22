@@ -11,6 +11,13 @@
 
     </insert>
 
+    <select id="id" resultType="int">
+        SELECT item_id
+        FROM item
+        ORDER BY item_id DESC
+            LIMIT 1;
+    </select>
+
     <insert id="insertImg" parameterType="map">
         INSERT INTO item_img (item_id, url)
         VALUES (#{item_id}, #{url})

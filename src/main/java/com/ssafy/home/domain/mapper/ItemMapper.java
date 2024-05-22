@@ -19,4 +19,6 @@ public interface ItemMapper {
     List<ItemCoordDto> search(CoordinateRangeRequest request);
     List<ItemCoordDto> myItem(int itemId);
     ItemDto searchDetail(int itemId);
+
+    int id();
 }
