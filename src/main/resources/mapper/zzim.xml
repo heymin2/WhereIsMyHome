@@ -30,4 +30,34 @@
         FROM zzim
         WHERE apt_id = #{apt_id}
     </select>
+
+    <insert id="likeItem" parameterType="map">
+        insert into zzimitem(member_id, item_id, created_at)
+        values ( #{member_id}, #{item_id}, now())
+    </insert>
+
+    <select id="checkItem" parameterType="map" resultType="int">
+        SELECT COUNT(*) AS CNT
+        FROM zzimitem
+        WHERE member_id = #{member_id} AND item_id = #{item_id}
+    </select>
+
+    <delete id="deleteItem" parameterType="Map">
+        DELETE from zzimitem where item_id = #{item_id} and member_id = #{member_id}
+    </delete>
+
+    <select id="searchItem" parameterType="int" resultType="zzimItemDto">
+        SELECT zzim_id as zzimId, zzimitem.item_id as itemId, type, longitude, latitude,
+               sale_price as salePrice, deposit, monthly_rent, sold, address, size
+        FROM zzimitem
+        JOIN item ON zzimitem.item_id = item.item_id
+        WHERE zzimitem.member_id = #{member_id}
+        ORDER BY zzimitem.created_at desc
+    </select>
+
+    <select id="itemCnt" parameterType="int" resultType="int">
+        SELECT COUNT(*)
+        FROM zzimitem
+        WHERE item_id = #{item_id}
+    </select>
 </mapper>

@@ -1,6 +1,8 @@
 package com.ssafy.home.domain.service;
 
 import com.ssafy.home.domain.dto.ZzimDto;
+import com.ssafy.home.domain.dto.ZzimInfoDto;
+import com.ssafy.home.domain.dto.ZzimItemDto;
 import com.ssafy.home.domain.mapper.ZzimMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,5 +39,28 @@ public class ZzimService {
 
     public int aptCnt(int aptId) {
         return zzimMapper.aptCnt(aptId);
+    }
+
+    @Transactional
+    public boolean likeItem(int memberId, int itemId) {
+        int cnt = zzimMapper.checkItem(memberId, itemId);
+        if(cnt == 0){
+            zzimMapper.likeItem(memberId, itemId);
+            return true;
+        }
+        return false;
+    }
+
+    @Transactional
+    public int deleteItem(int memberId, Integer itemId) {
+        return zzimMapper.deleteItem(memberId, itemId);
+    }
+
+    public List<ZzimItemDto> searchItem(int memberId) {
+        return zzimMapper.searchItem(memberId);
+    }
+
+    public int itemCnt(int itemId) {
+        return zzimMapper.itemCnt(itemId);
     }
 }
