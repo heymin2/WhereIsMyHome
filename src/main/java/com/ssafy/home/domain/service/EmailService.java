@@ -24,7 +24,7 @@ public class EmailService {
             MimeMessage message = emailSender.createMimeMessage();
 
             message.addRecipients(MimeMessage.RecipientType.TO, email); // 보낼 이메일 설정
-            message.setSubject("[home] 비밀번호 찾기 안내"); // 이메일 제목
+            message.setSubject("[개집] 비밀번호 찾기 안내"); // 이메일 제목
             message.setText(createHtml(id, name), "utf-8", "html"); // 내용 설정(Template Process)
 
             // 보낼 때 이름 설정하고 싶은 경우
