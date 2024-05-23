@@ -15,6 +15,7 @@ public class NoticeInfoDto {
     private String id;
     private String name;
     private String title;
+    private String content;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 }

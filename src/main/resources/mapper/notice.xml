@@ -7,7 +7,7 @@
     </insert>
 
     <select id="list" parameterType="map" resultType="noticeInfoDto">
-        SELECT n.notice_id as noticeId, m.id, m.name, n.title, n.created_at as createdAt, n.updated_at as updatedAt
+        SELECT n.notice_id as noticeId, m.id, m.name, n.title, n.content, n.created_at as createdAt, n.updated_at as updatedAt
         FROM NOTICE n
         INNER JOIN member m ON m.member_id = n.member_id
         ORDER BY createdAt desc
