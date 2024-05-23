@@ -26,21 +26,16 @@ public class NoticeController {
     private AuthService authService;
 
     @PostMapping("")
-    public ResponseEntity<?> signUp(@RequestBody NoticeDto noticeDto, HttpSession session) {
-        try{
-            int memberId = (int) session.getAttribute("session");
+    public ResponseEntity<?> create(@RequestBody NoticeDto noticeDto, HttpSession session) {
+        Object memberId = session.getAttribute("session");
 
-            LoginDto memberDto = authService.info(memberId);
-
-            if(memberDto.isAdmin()) {
-                noticeDto.setMemberId(memberId);
-                noticeService.createNotice(noticeDto);
-                return ResponseEntity.accepted().body("공지사항 성공");
-            }
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("권한 없음");
+        if(memberId == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인 필요");
         }
-        catch (Exception e){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("글쓰기 실패");
+        else {
+            noticeDto.setMemberId((int)memberId);
+            noticeService.createNotice(noticeDto);
+            return ResponseEntity.accepted().body("공지사항 성공");
         }
     }
 
@@ -83,10 +78,8 @@ public class NoticeController {
         noticeDto.setMemberId(memberId);
         int cnt = noticeService.updateNotice(noticeDto);
 
-        System.out.println(noticeDto);
-
         if (cnt == 1) {
-            return ResponseEntity.accepted().body("수정 성공");
+            return ResponseEntity.accepted().body(noticeService.listDetailNotice(noticeDto.getNoticeId()));
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("수정 실패");
     }

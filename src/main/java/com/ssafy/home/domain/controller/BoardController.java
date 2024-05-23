@@ -22,7 +22,7 @@ public class BoardController {
     private BoardService boardService;
 
     @PostMapping("")
-    public ResponseEntity<?> signUp(@RequestBody BoardDto boardDto, HttpSession session) {
+    public ResponseEntity<?> create(@RequestBody BoardDto boardDto, HttpSession session) {
         Object memberId = session.getAttribute("session");
         
         if(memberId == null) {

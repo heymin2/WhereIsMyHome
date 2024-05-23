@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class NoticeInfoDetailDto {
 
-    private int noticeDto;
+    private int noticeId;
     private String id;
     private String name;
     private String title;
