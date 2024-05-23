@@ -36,8 +36,23 @@ public class EmailService {
 
     private String createHtml(String id, String name) {
         StringBuilder sb = new StringBuilder();
-        sb.append("<div align=\"center\" style=\"font-size: 15px\">");
-        sb.append("당신의 비밀번호는 ").append(authMapper.findByPass(id, name)).append("입니다.");
+        sb.append("<div style=\"width: 100%; background-color: #f3f4f6; padding: 20px; font-family: Arial, sans-serif;\">");
+        sb.append("<div style=\"max-width: 600px; margin: auto; background-color: #ffffff; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); overflow: hidden;\">");
+        sb.append("<div style=\"background-color: #4CAF50; padding: 10px; text-align: center; color: #ffffff;\">");
+        sb.append("<h1 style=\"margin: 0; font-size: 24px;\">비밀번호 찾기</h1>");
+        sb.append("</div>");
+        sb.append("<div style=\"padding: 20px; text-align: center;\">");
+        sb.append("<p style=\"font-size: 18px; color: #333333;\">안녕하세요, ").append(name).append("님!</p>");
+        sb.append("<p style=\"font-size: 16px; color: #555555;\">요청하신 비밀번호는 아래와 같습니다:</p>");
+        sb.append("<p style=\"font-size: 20px; font-weight: bold; color: #333333;\">").append(authMapper.findByPass(id, name)).append("</p>");
+        sb.append("<a href=\"http://localhost:5173\" style=\"display: inline-block; margin-top: 20px; padding: 10px 20px; font-size: 16px; color: #ffffff; background-color: #4CAF50; text-decoration: none; border-radius: 5px;\">로그인 하러 가기</a>");
+        sb.append("</div>");
+        sb.append("<div style=\"background-color: #f9f9f9; padding: 10px; text-align: center; font-size: 12px; color: #aaaaaa;\">");
+        sb.append("<p style=\"margin: 0;\">© 2024 hyung-hye. All rights reserved.</p>");
+        sb.append("</div>");
+        sb.append("</div>");
+        sb.append("</div>");
         return sb.toString();
+
     }
 }
