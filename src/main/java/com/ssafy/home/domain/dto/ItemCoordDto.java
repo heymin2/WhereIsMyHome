@@ -3,6 +3,9 @@ package com.ssafy.home.domain.dto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.time.LocalDateTime;
 
 @Getter
 @AllArgsConstructor
@@ -19,4 +22,7 @@ public class ItemCoordDto {
     private int monthlyRent;
     private double size;
     private boolean sold;
+    private LocalDateTime createdAt;
+    @Setter
+    private boolean zzim;
 }

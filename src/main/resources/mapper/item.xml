@@ -11,6 +11,13 @@
 
     </insert>
 
+    <select id="id" resultType="int">
+        SELECT item_id
+        FROM item
+        ORDER BY item_id DESC
+            LIMIT 1;
+    </select>
+
     <insert id="insertImg" parameterType="map">
         INSERT INTO item_img (item_id, url)
         VALUES (#{item_id}, #{url})
@@ -31,7 +38,7 @@
 
     <select id="search" parameterType="CoordinateRangeRequest" resultType="itemCoordDto">
         SELECT item_id as itemId, type, longitude, latitude,
-               sale_price as salePrice, deposit, monthly_rent as monthlyRent, sold, address, size
+               sale_price as salePrice, deposit, monthly_rent as monthlyRent, sold, address, size, created_at as createdAt
         FROM item
         WHERE longitude between #{startLongitude} and #{endLongitude}
           AND latitude BETWEEN #{startLatitude} AND #{endLatitude}
@@ -40,14 +47,28 @@
     <select id="searchDetail" parameterType="int" resultType="itemDto">
         SELECT item_id as itemId, type, longitude, latitude, address, title, description, sale_price as salePrice,
                created_at as createdAt, updated_at as updatedAt, deposit, monthly_rent as monthlyRent, rooms, bathrooms, size, sold
+                , created_at as createdAt
         FROM item
+        WHERE item_id = #{itemId}
+    </select>
+
+    <select id="getImg" parameterType="int" resultType="string">
+        SELECT url
+        FROM item_img
         WHERE item_id = #{itemId}
     </select>
 
     <select id="myItem" parameterType="int" resultType="itemCoordDto">
         SELECT item_id as itemId, type, longitude, latitude,
-               sale_price as salePrice, deposit, monthly_rent as monthlyRent, sold, address, size
+               sale_price as salePrice, deposit, monthly_rent as monthlyRent, sold, address, size, created_at as createdAt
         FROM item
         WHERE member_id = #{memberId}
     </select>
+
+    <update id="update" parameterType="itemDto">
+        UPDATE item SET type = #{type}, title = #{title}, description = #{description},
+        sale_price = #{salePrice}, deposit = #{deposit}, monthly_rent = #{monthlyRent},
+        rooms = #{rooms}, bathrooms = #{bathrooms}, size = #{size}, updated_at = now()
+        where item_id = #{itemId} and member_id = #{memberId}
+    </update>
 </mapper>

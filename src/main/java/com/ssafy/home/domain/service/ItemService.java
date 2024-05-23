@@ -3,6 +3,7 @@ package com.ssafy.home.domain.service;
 import com.ssafy.home.domain.dto.ItemCoordDto;
 import com.ssafy.home.domain.dto.ItemDto;
 import com.ssafy.home.domain.mapper.ItemMapper;
+import com.ssafy.home.domain.mapper.ZzimMapper;
 import com.ssafy.home.domain.request.CoordinateRangeRequest;
 import org.json.simple.JSONArray;
 import org.springframework.stereotype.Service;
@@ -36,13 +37,15 @@ public class ItemService {
     String apiUrl;
 
     private final ItemMapper itemMapper;
+    private final ZzimMapper zzimMapper;
 
-    public ItemService(ItemMapper itemMapper) {
+    public ItemService(ItemMapper itemMapper, ZzimMapper zzimMapper) {
         this.itemMapper = itemMapper;
+        this.zzimMapper = zzimMapper;
     }
 
     @Transactional
-    public void inserItem(ItemDto itemDto, int memberId) throws ParseException {
+    public void insertItem(ItemDto itemDto, List<MultipartFile> img, int memberId) throws ParseException {
         itemDto.setMemberId(memberId);
         String json = getAddress(itemDto.getAddress());
 
@@ -52,30 +55,30 @@ public class ItemService {
             itemDto.setLongitude(xy.get(0));
             itemDto.setLatitude(xy.get(1));
         }
+
         itemMapper.insertItem(itemDto);
 
-        for (MultipartFile photo : itemDto.getImg()) {
+        for (MultipartFile photo : img) {
             try {
                 String url = savePhoto(photo);
-                itemMapper.insertImg(itemDto.getItemId(), url);
+                itemMapper.insertImg(itemMapper.id(), url);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
     }
 
-    private String savePhoto(MultipartFile photo) throws IOException {
+    public String savePhoto(MultipartFile photo) throws IOException {
         // 파일을 저장할 디렉토리 경로를 지정합니다.
-        String uploadDir = "/path/to/upload/directory"; // 실제 파일을 저장할 디렉토리 경로로 변경하세요.
+        String uploadDir = "/Users/nemin/Downloads/home/src/main/java/com/ssafy/home/common/img";
 
         // 디렉토리가 존재하지 않으면 생성합니다.
         Path uploadPath = Paths.get(uploadDir);
-        if (!Files.exists(uploadPath)) {
-            Files.createDirectories(uploadPath);
-        }
 
         // 저장할 파일의 이름을 설정합니다.
-        String fileName = System.currentTimeMillis() + "_" + photo.getOriginalFilename();
+        String originalFileName = photo.getOriginalFilename();
+        String safeFileName = originalFileName.replaceAll(" ", "_");
+        String fileName = System.currentTimeMillis() + "_" + safeFileName;
 
         // 파일을 저장할 전체 경로를 생성합니다.
         Path filePath = uploadPath.resolve(fileName);
@@ -83,8 +86,8 @@ public class ItemService {
         // 파일을 로컬 디스크에 저장합니다.
         Files.copy(photo.getInputStream(), filePath);
 
-        // 저장된 파일의 경로를 반환합니다.
-        return filePath.toString();
+        // db 저장은 파일 이름만
+        return fileName;
     }
 
     private String getAddress(String address) {
@@ -144,15 +147,50 @@ public class ItemService {
         }
     }
 
-    public List<ItemCoordDto> search(CoordinateRangeRequest request) {
-        return itemMapper.search(request);
+    public List<ItemCoordDto> search(CoordinateRangeRequest request, Object memberId) {
+        List<ItemCoordDto> list = itemMapper.search(request);
+        List<ItemCoordDto> list2 = new ArrayList<>();
+
+        if(memberId != null) {
+            for(ItemCoordDto l : list) {
+                boolean zzim = false;
+                int cnt = zzimMapper.checkItem((int) memberId, l.getItemId());
+
+                if (cnt == 1) {
+                    zzim = true;
+                }
+                l.setZzim(zzim);
+                list2.add(l);
+            }
+            return list2;
+        }
+        return list;
     }
 
     public List<ItemCoordDto> myItem(int memberId) {
         return itemMapper.myItem(memberId);
     }
 
-    public List<ItemDto> searchDetail(int itemId) {
-        return itemMapper.searchDetail(itemId);
+    public ItemDto searchDetail(int itemId, Object memberId) {
+        ItemDto item = itemMapper.searchDetail(itemId);
+        boolean zzim = false;
+
+        List<String> img = itemMapper.getImg(itemId);
+        item.setImg(img);
+
+        if(memberId != null) {
+            int cnt = zzimMapper.checkItem((int) memberId, item.getItemId());
+
+            if (cnt == 1) {
+                zzim = true;
+            }
+            item.setZzim(zzim);
+        }
+        return item;
+    }
+
+    @Transactional
+    public int update(ItemDto itemDto) {
+        return itemMapper.update(itemDto);
     }
 }

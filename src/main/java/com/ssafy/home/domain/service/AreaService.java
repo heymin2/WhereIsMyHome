@@ -59,8 +59,25 @@ public class AreaService {
         return result;
     }
 
-    public List<HouseInfoDto> fingArea(String sido, String gugun, String dong) {
-        return areaMapper.findArea(sido, gugun, dong);
+    public List<HouseInfoDto> fingArea(String sido, String gugun, String dong, Object memberId) {
+        List<HouseInfoDto> house = areaMapper.findArea(sido, gugun, dong);
+        List<HouseInfoDto> house2 = new ArrayList<>();
+
+        if(memberId != null) {
+            for (HouseInfoDto h : house) {
+                boolean zzim = false;
+                int cnt = zzimMapper.check((int) memberId, h.getAptId());
+
+                if (cnt == 1) {
+                    zzim = true;
+                }
+
+                h.setZzim(zzim);
+                house2.add(h);
+            }
+            return house2;
+        }
+        return house;
     }
 
     public HouseDto aptInfo(int aptId, Object memberId) {

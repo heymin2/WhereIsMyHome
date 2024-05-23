@@ -31,8 +31,9 @@ public class AreaController {
     }
 
     @GetMapping("/{sido}/{gugun}/{dong}")
-    public ResponseEntity<?> findArea(@PathVariable String sido, @PathVariable String gugun, @PathVariable String dong){
-        return new ResponseEntity<>(areaService.fingArea(sido, gugun, dong), HttpStatus.OK);
+    public ResponseEntity<?> findArea(@PathVariable String sido, @PathVariable String gugun, @PathVariable String dong, HttpSession session){
+        Object memberId = session.getAttribute("session");
+        return new ResponseEntity<>(areaService.fingArea(sido, gugun, dong, memberId), HttpStatus.OK);
     }
 
     @GetMapping("/apt/{aptId}")

@@ -1,5 +1,6 @@
 package com.ssafy.home.domain.controller;
 
+import com.ssafy.home.domain.dto.BoardDto;
 import com.ssafy.home.domain.dto.ItemDto;
 import com.ssafy.home.domain.request.CoordinateRangeRequest;
 import com.ssafy.home.domain.service.ItemService;
@@ -9,6 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/item")
@@ -18,14 +22,13 @@ public class ItemController {
     private ItemService itemService;
 
     @PostMapping("")
-    public ResponseEntity<?> insert(@RequestBody ItemDto itemDto, HttpSession session) throws ParseException {
+    public ResponseEntity<?> insert(@RequestPart("data") ItemDto itemDto, @RequestPart("file") List<MultipartFile> img, HttpSession session) throws ParseException {
         Object memberId = session.getAttribute("session");
 
-        if(memberId == null) {
+        if (memberId == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인 필요");
-        }
-        else {
-            itemService.inserItem(itemDto, (int)memberId);
+        } else {
+            itemService.insertItem(itemDto, img, (int) memberId);
             return ResponseEntity.accepted().body("매물 등록 성공");
         }
     }
@@ -60,8 +63,10 @@ public class ItemController {
     }
 
     @PostMapping("/place")
-    public ResponseEntity<?> search(@RequestBody CoordinateRangeRequest request) {
-        return ResponseEntity.accepted().body(itemService.search(request));
+    public ResponseEntity<?> search(@RequestBody CoordinateRangeRequest request, HttpSession session) {
+        Object memberId = session.getAttribute("session");
+
+        return ResponseEntity.accepted().body(itemService.search(request, memberId));
     }
 
     @GetMapping("")
@@ -76,7 +81,26 @@ public class ItemController {
     }
 
     @GetMapping("/place/{itemId}")
-    public ResponseEntity<?> searchDetail(@PathVariable int itemId) {
-        return ResponseEntity.accepted().body(itemService.searchDetail(itemId));
+    public ResponseEntity<?> searchDetail(@PathVariable int itemId, HttpSession session) {
+        Object memberId = session.getAttribute("session");
+
+        return ResponseEntity.accepted().body(itemService.searchDetail(itemId, memberId));
+    }
+
+    @PutMapping("")
+    public ResponseEntity<?> update(@RequestBody ItemDto itemDto, HttpSession session) {
+        Object memberId = session.getAttribute("session");
+
+        if(memberId == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("세션 만료");
+        }
+        else {
+            itemDto.setMemberId((int)memberId);
+
+            if(itemService.update(itemDto) == 1) {
+                return ResponseEntity.accepted().body(itemService.searchDetail(itemDto.getItemId(), memberId));
+            }
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("수정 실패");
+        }
     }
 }
