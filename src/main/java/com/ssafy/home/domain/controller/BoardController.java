@@ -36,7 +36,7 @@ public class BoardController {
     }
 
     @GetMapping("")
-    public ResponseEntity<?> list(@RequestParam Map<String, Object> paramMap, @PageableDefault(size = 10) Pageable pageable, HttpSession session) {
+    public ResponseEntity<?> list(@RequestParam Map<String, Object> paramMap, @PageableDefault(size = 10) Pageable pageable) {
         Map<String, Object> resultMap = new HashMap<>();
 
         Page<Map<String, Object>> result = boardService.list(paramMap, pageable);

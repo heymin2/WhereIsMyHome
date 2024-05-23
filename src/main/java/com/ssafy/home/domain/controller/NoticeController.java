@@ -1,7 +1,6 @@
 package com.ssafy.home.domain.controller;
 
 import com.ssafy.home.domain.dto.*;
-import com.ssafy.home.domain.service.AuthService;
 import com.ssafy.home.domain.service.NoticeService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +20,6 @@ public class NoticeController {
 
     @Autowired
     private NoticeService noticeService;
-
-    @Autowired
-    private AuthService authService;
 
     @PostMapping("")
     public ResponseEntity<?> create(@RequestBody NoticeDto noticeDto, HttpSession session) {
