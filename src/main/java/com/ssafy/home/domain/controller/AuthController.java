@@ -42,13 +42,10 @@ public class AuthController {
 
     @PostMapping("/findPw")
     public ResponseEntity<?> findByPass(@RequestBody FindPwRequest request) throws Exception {
-        try{
-            emailService.sendEmailMessage(request.getId(), request.getName());
+        if(emailService.sendEmailMessage(request.getId(), request.getName())) {
             return ResponseEntity.accepted().body("비밀번호 찾기 성공");
         }
-        catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("비밀번호 찾기 실패");
-        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("비밀번호 찾기 실패");
     }
 
     @GetMapping("")

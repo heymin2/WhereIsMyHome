@@ -17,7 +17,7 @@ public class EmailService {
     @Autowired
     private final AuthMapper authMapper;
 
-    public void sendEmailMessage(String id, String name) throws Exception {
+    public boolean sendEmailMessage(String id, String name) throws Exception {
         String email = authMapper.findByEmail(id, name);
 
         if(email != null) {
@@ -31,7 +31,10 @@ public class EmailService {
             // message.setFrom(new InternetAddress([이메일 계정], [설정할 이름]));
 
             emailSender.send(message); // 이메일 전송
+
+            return true;
         }
+        return false;
     }
 
     private String createHtml(String id, String name) {
