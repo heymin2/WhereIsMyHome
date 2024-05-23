@@ -35,6 +35,8 @@ public class ItemService {
     String apiKey;
     @Value("${kakao.url}")
     String apiUrl;
+    @Value("${img.path}")
+    String path;
 
     private final ItemMapper itemMapper;
     private final ZzimMapper zzimMapper;
@@ -70,7 +72,7 @@ public class ItemService {
 
     public String savePhoto(MultipartFile photo) throws IOException {
         // 파일을 저장할 디렉토리 경로를 지정합니다.
-        String uploadDir = "/Users/nemin/Downloads/home/src/main/java/com/ssafy/home/common/img";
+        String uploadDir = path;
 
         // 디렉토리가 존재하지 않으면 생성합니다.
         Path uploadPath = Paths.get(uploadDir);
