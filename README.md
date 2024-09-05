@@ -6,9 +6,11 @@
 
 ### Backend
 <div style="display: flex; align-items: center;">
-  <img alt="javascript" src="https://img.shields.io/badge/java-4E7996?style=for-the-badge&logoColor=ffffff">
-  <img alt="javascript" src="https://img.shields.io/badge/spring_boot-6DB33F?style=for-the-badge&logoColor=ffffff">
-  <img alt="javascript" src="https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logoColor=ffffff">
+  <img alt="java" src="https://img.shields.io/badge/java-4E7996?style=for-the-badge&logoColor=ffffff">
+  <img alt="spring boot" src="https://img.shields.io/badge/spring_boot-6DB33F?style=for-the-badge&logoColor=ffffff">
+  <img alt="mysql" src="https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logoColor=ffffff">
+  <img alt="redis" src="https://img.shields.io/badge/redis-FF0000?style=for-the-badge&logoColor=ffffff">
+  <img alt="mybatis" src="https://img.shields.io/badge/mybatis-0E0D0D?style=for-the-badge&logoColor=ffffff">
 </div>
 
 ### Frontend
